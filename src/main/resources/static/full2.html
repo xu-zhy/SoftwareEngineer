@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--https://blog.csdn.net/qq_40881695/article/details/121379692-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=03526e76418d9af743a39c09e6083a52&plugin=AMap.DistrictLayer,AMap.DistrictSearch"></script>
+    <title>国家和省份切换</title>
+    <style type="text/css">
+        html,
+        body,
+        .map {
+            width: 100%;
+            height: 100%;
+            background: white !important;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="map"></div>
+</body>
+
+<script type="text/javascript">
+    var provinceData = [];
+    var cityData = [];
+
+    var disCountry = new AMap.DistrictLayer.Country({
+        zIndex: 10,
+        SOC: "CHN",
+        depth: 1,
+        styles: {
+            "province-stroke": "#888888",
+            fill: "#5470c6",
+        },
+    });
+
+    var disProvince = new AMap.DistrictLayer.Province({
+        zIndex: 12,
+        adcode: "",
+        depth: 1,
+        styles: {
+            "city-stroke": "#888888",
+            fill: "#5470c6",
+        },
+    });
+
+    var layerProvince = new AMap.LabelsLayer({
+        collision: false, // 开启标注避让
+        animation: true, // 开启标注淡入动画
+    });
+
+    var layerCity = new AMap.LabelsLayer({
+        collision: false,
+        animation: true,
+    });
+
+    var map = new AMap.Map("container", {
+        zooms: [4, 10],
+        center: [106.122082, 33.719192],
+        zoom: 4,
+        isHotspot: false, // 是否开启地图热点和标注的 hover 效果
+        defaultCursor: "pointer",
+        layers: [disCountry, disProvince],
+        viewMode: "2D",
+        resizeEnable: true,
+    });
+
+    var districtSearch = new AMap.DistrictSearch({
+        level: "country",
+        subdistrict: 2, //  显示下级行政区级数
+    });
+
+    districtSearch.search("中国", function (status, result) {
+        provinceData = result.districtList[0].districtList;
+    });
+
+    map.on("complete", function () {
+        for (var i = 0; i < provinceData.length; i++) {
+            var province = provinceData[i];
+            var marker = new AMap.LabelMarker({
+                name: province.name,
+                position: [province.center.lng, province.center.lat],
+                zIndex: 10,
+                text: {
+                    content: province.name,
+                    direction: "center",
+                    style: {
+                        fontSize: 10,
+                        fontWeight: "normal",
+                        fillColor: "#fff",
+                        backgroundColor: "rgb(246,137,38)",
+                        borderColor: "#fff",
+                    },
+                },
+            });
+            layerProvince.add(marker);
+        }
+        map.add(layerProvince);
+    });
+
+    map.on("click", function (ev) {
+        var px = ev.pixel;
+        var props = disCountry.getDistrictByContainerPos(px); // 拾取所在位置的行政区
+        disProvince.setDistricts(props.adcode + ""); // 显示当前点击的省份
+        disCountry.hide();
+        map.remove(layerProvince);
+
+        map.setCenter([props.x, props.y]);
+        map.setZoom(7);
+
+        // 获取当前点击省份下的市级数据
+        for (var i = 0; i < provinceData.length; i++) {
+            if (props.NAME_CHN === provinceData[i].name) {
+                cityData = provinceData[i].districtList;
+            }
+        }
+
+        for (var i = 0; i < cityData.length; i++) {
+            var city = cityData[i];
+            var marker = new AMap.LabelMarker({
+                name: city.name,
+                position: [city.center.lng, city.center.lat],
+                zIndex: 10,
+                text: {
+                    content: city.name,
+                    direction: "center",
+                    style: {
+                        fontSize: 10,
+                        fontWeight: "normal",
+                        fillColor: "#fff",
+                        backgroundColor: "rgb(246,137,38)",
+                        borderColor: "#fff",
+                    },
+                },
+            });
+            layerCity.add(marker);
+        }
+        map.add(layerCity);
+    });
+</script>
+</html>
+
