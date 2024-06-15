@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-spring.application.name=gaodeMap
-=======
 server:
   port: 8080
 
@@ -18,4 +15,3 @@ spring:
 
 #mybatis:
 #  type-aliases-package: com.example.newDemo.bean
->>>>>>> temp
