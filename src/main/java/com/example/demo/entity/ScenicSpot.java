@@ -16,6 +16,7 @@ public class ScenicSpot {
     private String sceneClass;
     private String longitude;
     private String latitude;
+    private String landmark;
 
     @ManyToOne
     @JoinColumn(name = "province_id")
@@ -92,5 +93,13 @@ public class ScenicSpot {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
     }
 }
