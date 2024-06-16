@@ -1,9 +1,7 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class ScenicSpot {
@@ -16,11 +14,14 @@ public class ScenicSpot {
     private String sceneClass;
     private String longitude;
     private String latitude;
-    private String landmark;
 
     @ManyToOne
-    @JoinColumn(name = "province_id")
+    @JoinColumn(name = "provinceId")
     private Province province;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "scenicSpot")
+    private Landmark landmark;
 
     // Getters and Setters
     public String getSceneId() {
@@ -95,11 +96,11 @@ public class ScenicSpot {
         this.province = province;
     }
 
-    public String getLandmark() {
+    public Landmark getLandmark() {
         return landmark;
     }
 
-    public void setLandmark(String landmark) {
+    public void setLandmark(Landmark landmark) {
         this.landmark = landmark;
     }
 }

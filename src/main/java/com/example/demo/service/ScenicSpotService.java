@@ -18,14 +18,14 @@ public class ScenicSpotService {
         return scenicSpotRepository.findByProvince_ProvinceName(provinceName);
     }
 
-    public List<ScenicSpot> getLandmarksByProvinceName(String provinceName) {
-        // 查询所有省份的景点
-        List<ScenicSpot> scenicSpots = scenicSpotRepository.findByProvince_ProvinceName(provinceName);
-        // 筛选出地标景点（landmark字段为'1'）
-        List<ScenicSpot> landmarks = scenicSpots.stream()
-                .filter(scenicSpot -> "1".equals(scenicSpot.getLandmark()))
-                .collect(Collectors.toList());
-
-        return landmarks;
-    }
+//    public List<ScenicSpot> getLandmarksByProvinceName(String provinceName) {
+//        // 查询所有省份的景点
+//        List<ScenicSpot> scenicSpots = scenicSpotRepository.findByProvince_ProvinceName(provinceName);
+//        // 筛选出地标景点（landmark字段为'1'）
+//        List<ScenicSpot> landmarks = scenicSpots.stream()
+//                .filter(scenicSpot -> "1".equals(scenicSpot.getLandmark()))
+//                .collect(Collectors.toList());
+//
+//        return landmarks;
+//    }
 }
