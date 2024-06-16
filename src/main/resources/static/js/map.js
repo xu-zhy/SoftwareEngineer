@@ -1,4 +1,4 @@
-var normalBackFill = "white";
+var normalBackFill = "#FFFFE9";
 var normalBorder = "#888888";
 var selectBackFill = "rgba(20, 120, 230, 0.3)";
 // var selectBorder = "#ADFF2F";
@@ -117,11 +117,20 @@ map.on("click", function (ev) {
     var props = disCountry.getDistrictByContainerPos(px); // 拾取所在位置的行政区
     disProvince.setDistricts(props.adcode + ""); // 显示当前点击的省份
 
+    // 设置目标省份缩放和中心点
     map.setCenter([props.x, props.y]);
     map.setZoom(adcode2zoom[props.adcode]);
-
     disProvince.setStyles({
         'fill': selectBackFill
     });
+
+    // 更新标注信息
+    updateInfo(props);
 });
 
+// 标注信息
+document.getElementsByClassName('amap-mcode')[0].innerHTML = '-GS(2021)648号'
+function updateInfo(props) {
+    document.getElementById('zh_name').innerText = props.NAME_CHN;
+    document.getElementById('adcode').innerText = props.adcode;
+}

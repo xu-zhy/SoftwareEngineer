@@ -1,29 +1,73 @@
 <!DOCTYPE html>
-<!--https://blog.csdn.net/qq_40881695/article/details/121379692-->
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://webapi.amap.com/maps?v=1.4.15&key=03526e76418d9af743a39c09e6083a52&plugin=AMap.DistrictLayer,AMap.DistrictSearch"></script>
-    <title>国家和省份切换</title>
-    <style type="text/css">
+    <title>旅游信息地图</title>
+    <link rel="stylesheet" href="//a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <link rel="stylesheet" href="css/map_page_blankStyle.css">
+    <style>
         html,
         body,
-        .map {
+        #container {
             width: 100%;
             height: 100%;
-            background: white !important;
-            margin: 0px;
+            margin: 0;
         }
     </style>
 </head>
 <body>
+
+<!--导航栏、搜索框和用户-->
+<div class="header w">
+    <!-- 标志模块 -->
+    <div class="logo">
+        <img src="images/map_page/sysu_logo.jpg">
+    </div>
+    <!-- 文字导航栏模块 -->
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="index.html">首页导航</a>
+            </li>
+            <li>
+                <a href="news.html">热点新闻</a>
+            </li>
+            <li>
+                <a href="blogs.html">旅行空间</a>
+            </li>
+        </ul>
+    </div>
+    <!-- 搜索模块 -->
+    <div class="search">
+        <input type="text" value="输入关键词" ></input>
+        <button></button>
+    </div>
+    <!-- 用户模块 -->
+    <div class="user">
+        <img src="images/user.png" style="vertical-align: middle">
+        qq-lilei
+    </div>
+</div>
+
+
+<!--地图-->
 <div id="container" class="map"></div>
+
+
+<!--地图标识-->
+<div class="info" style="min-width: 200px; margin-top: 70px;">
+    <h4>所选省份信息</h4>
+    <p>中文名字：<span id="zh_name">中国</span></p>
+    <p>行政编码：<span id="adcode">--</span></p><hr>
+    <p>点击地图任意中国省份区域</p>
+</div>
+
+
+<!--地图 js 数据-->
+<script src="//webapi.amap.com/maps?v=1.4.15&key=03526e76418d9af743a39c09e6083a52&plugin=AMap.DistrictLayer,AMap.DistrictSearch"></script>
+<script src="js/map.js"></script>
+
 </body>
-
-<script src="java/map.js"></script>
-
-</body>
-
 </html>

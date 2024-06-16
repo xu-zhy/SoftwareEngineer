@@ -1,0 +1,86 @@
+/*css 变量*/
+:root {
+    --screen-width: calc(100vw);
+    --header-height: calc(8vh);
+    --element-margin: calc(1vw);
+}
+
+/*地图标识属性*/
+.info span {
+    color: #0288d1;
+    text-align: center;
+}
+
+/*https://javaforall.cn/140268.html*/
+/*导航栏和搜索框属性*/
+*{
+    margin: 0;
+    padding: 0;
+}
+.w{
+    width: var(--screen-width);
+    margin: auto;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decroation: none;
+}
+.header{
+    height: var(--header-height);
+    /*margin: 30px auto;*/
+    background: linear-gradient(deepskyblue, forestgreen);
+}
+.logo{
+    float: left;
+    width: calc(var(--screen-width) * 0.1);
+    height:var(--header-height);
+}
+.nav{
+    float: left;
+    margin-left: var(--element-margin);
+}
+.nav ul li{
+    float: left;
+    margin: 0 var(--element-margin);
+}
+.nave ul li a{
+    display: block;
+    height: var(--header-height);
+    padding: 0 10px;
+    line-height: var(--header-height);
+    color: black;
+}
+.nave ul li a:hover{
+    border-bottom: 2px solid #00a4ff;
+}
+.search{
+    float: left;
+    width: calc(var(--screen-width) * 0.4);
+    height: var(--header-height);
+    background-color: #00a4ff;
+    margin-left: var(--element-margin);
+}
+.search input{
+    float: left;
+    width: calc(var(--screen-width) * 0.35);
+    height: var(--header-height);
+    border: 1px solid #00a4ff;
+    border-right: 0;
+    color: #bfbfbf;
+    font-size: 14px;
+    padding-left: 15px;
+}
+.search button {
+    float: left;
+    width: calc(var(--screen-width) * 0.05);
+    height: var(--header-height);
+    /* 去掉按钮默认边框 */
+    border: 0;
+    background: url(../images/map_page/search.jpg) no-repeat;
+}
+.user {
+    float: left;
+    margin-left: var(--element-margin);
+}
