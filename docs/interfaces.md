@@ -1,7 +1,7 @@
 # API 
 
 ## 通过省份名称获取景点信息
-- **URL**: http://localhost:8080/scenicSpot/byProvince?provinceName=广东
+- **URL**: http://localhost:8080/scenicSpot/byProvince?provinceName=广东省
 - **方法**: GET
 - **描述**: 根据省份名称（中文）查询该省份的所有景区信息。
 - **请求参数**：

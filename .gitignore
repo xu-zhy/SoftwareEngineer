@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Raw Data ###
+db/scene
