@@ -21,4 +21,9 @@ public class ScenicSpotController {
     public List<ScenicSpot> getScenicSpotsByProvinceName(@RequestParam String provinceName) {
         return scenicSpotService.getScenicSpotsByProvinceName(provinceName);
     }
+
+    @GetMapping("/landmarks")
+    public List<ScenicSpot> getLandmarksByProvinceName(@RequestParam String provinceName) {
+        return scenicSpotService.getLandmarksByProvinceName(provinceName);
+    }
 }
