@@ -37,7 +37,7 @@
 
 ### XZY
 
-+ **2024-6-16: 数据库 schema 修改，scenic_spot 增加 landmark 属性，需重新导入 sql 文件**
++ **2024-6-16: 数据库 schema 修改，增加 landmark 表，需重新导入 sql 文件**
 
 ### KJX
 
