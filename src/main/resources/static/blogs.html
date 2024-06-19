@@ -43,15 +43,16 @@
 $(document).ready(function() {
     $.ajax({
         url: '/province/all',
-        method: 'GET',
+        method: 'get',
         success: function(data) {
+            console.log('Province sql data passed.')
             var provinceTable = $('#province-table tbody');
             provinceTable.empty(); // Clear existing data
 
             data.forEach(function(province) {
                 var row = $('<tr></tr>');
-                row.append('<td>' + province.id + '</td>');
-                row.append('<td>' + province.name + '</td>');
+                row.append('<td>' + province.provinceId + '</td>');
+                row.append('<td>' + province.provinceName + '</td>');
                 provinceTable.append(row);
             });
         },

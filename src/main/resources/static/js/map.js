@@ -90,6 +90,25 @@ districtSearch.search("中国", function (status, result) {
 });
 
 
+// 读取省份地标数据
+var landmarks_data = [];
+function fetchLandmarksByProvince(provinceName) {
+    $.ajax({
+        url: `/landmark/byProvince`,
+        type: 'GET',
+        data: { provinceName: provinceName },
+        success: function(data) {
+            // 将数据存储到全局变量中
+            landmarks_data = data;
+            console.log('Landmarks Data:', landmarks_data);
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to fetch landmarks:', status, error);
+        }
+    });
+}
+
+
 // map 生成事件，仅出现在刚开始的时候
 map.on("complete", function () {
     for (var i = 0; i < provinceData.length; i++) {
@@ -118,13 +137,20 @@ map.on("complete", function () {
 
 // map 双击事件
 var scene_markers = [];
+var gprops;
 
 map.on("dblclick", function (ev) {
     var px = ev.pixel;
     var props = disCountry.getDistrictByContainerPos(px); // 拾取所在位置的行政区
     disProvince.setDistricts(props.adcode + ""); // 显示当前点击的省份
 
+    gprops = props; // !
+    console.log('1');
+    fetchLandmarksByProvince('广东省');
+    console.log('2');
+
     // 设置目标省份缩放和中心点
+
     map.setCenter([props.x, props.y]);
     map.setZoom(adcode2zoom[props.adcode]);
     disProvince.setStyles({
@@ -136,7 +162,6 @@ map.on("dblclick", function (ev) {
     map.remove(layerProvince); // 必须 remove，否则消息窗体无法显示
     map.remove(scene_markers);
     scene_markers.length = 0;
-
 
     // for
     var scene_marker = new AMap.Marker({
@@ -161,7 +186,6 @@ map.on("dblclick", function (ev) {
         infoWindow.open(map, scene_marker.getPosition());
     });
 
-
     scene_markers.push(scene_marker);
     map.add(scene_markers);
 
@@ -169,6 +193,12 @@ map.on("dblclick", function (ev) {
     updateInfo(props);
 });
 
+console.log('\ngprops:');
+console.log(gprops);
+console.dir(gprops);
+console.log('\nprovinceData:');
+console.log(provinceData);
+console.dir(provinceData);
 
 // map 右击回到大地图视野并初始化
 map.on("rightclick", function () {
