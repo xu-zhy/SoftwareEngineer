@@ -120,7 +120,7 @@ map.on("complete", function () {
 function fetchLandmarksByProvince(provinceName) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `http://localhost:8080/landmark/byProvince`,
+            url: `/landmark/byProvince`,
             type: 'GET',
             data: { provinceName: provinceName },
             success: function(data) {
@@ -273,7 +273,7 @@ function createInfoWindow(title, content) {
 
 // 标注信息函数
 document.getElementsByClassName('amap-mcode')[0].innerHTML = '-GS(2021)648号'
-function updateInfo(props) {
+function updateInfo(props, province_number) {
     document.getElementById('zh_name').innerText = props.NAME_CHN;
     document.getElementById('adcode').innerText = props.adcode;
     // 添加一个有几个知名景点的展示量

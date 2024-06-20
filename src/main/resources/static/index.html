@@ -40,22 +40,22 @@
                 <a href="index.html">首页导航</a>
             </li>
             <li>
-                <a href="test.html">(热点新闻)测试页面</a>
+                <a href="page/test.html">(热点新闻)测试页面</a>
             </li>
             <li>
-                <a href="blogs.html">旅行空间</a>
+                <a href="page/blogs.html">旅行空间</a>
             </li>
         </ul>
     </div>
     <!-- 搜索模块 -->
     <div class="search">
-        <input type="text" value="请输入关键词" >
-        <button></button>
+        <input type="text" value="请输入关键词">
+        <button onclick="window.location.href='page/search.html'"></button>
     </div>
     <!-- 用户模块 -->
     <div class="user">
         <img src="images/map_page/user.jpg" style="vertical-align: middle">
-        Iceline
+        <a href="page/signin.html" class="btn">Iceline</a>
     </div>
 </div>
 
@@ -68,7 +68,8 @@
 <div class="info" style="min-width: 200px; margin-top: 70px;">
     <h4>所选省份信息</h4>
     <p>中文名字：<span id="zh_name">中国</span></p>
-    <p>行政编码：<span id="adcode">--</span></p><hr>
+    <p>行政编码：<span id="adcode">--</span></p>
+    <hr>
     <p>点击地图任意中国省份区域</p>
 </div>
 
