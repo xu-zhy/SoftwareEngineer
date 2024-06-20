@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 20/06/2024 14:37:28
+ Date: 20/06/2024 21:55:51
 */
 
 SET NAMES utf8mb4;
@@ -90,6 +90,16 @@ INSERT INTO `landmark` VALUES ('57', '15535', '长沙市中心繁华广场，商
 INSERT INTO `landmark` VALUES ('58', '16149', '青岛著名风景区，建筑风格多样。');
 INSERT INTO `landmark` VALUES ('59', '16155', '青岛地标性景点，海滨观景好去处。');
 INSERT INTO `landmark` VALUES ('6', '1644', '北京市内著名皇家园林，以白塔和琼华岛为特色。');
+INSERT INTO `landmark` VALUES ('60', '17112', '建于公元公元1907年，是连接城市两岸的重要标志');
+INSERT INTO `landmark` VALUES ('61', '17363', '跨越中山渠的古桥，是兰州市区内最古老的桥梁之一');
+INSERT INTO `landmark` VALUES ('62', '17110', '收藏展示了丰富的历史文物和艺术品');
+INSERT INTO `landmark` VALUES ('63', '18089', '中国最重要的佛教艺术宝库之一');
+INSERT INTO `landmark` VALUES ('64', '18090', '明长城的西端起点，中国最著名的长城关隘之一');
+INSERT INTO `landmark` VALUES ('65', '18014', '娱乐设施和主题公园的集合，适合全家出游。');
+INSERT INTO `landmark` VALUES ('66', '17983', '美丽沙滩和丰富娱乐设施，适合休闲度假。');
+INSERT INTO `landmark` VALUES ('67', '18091', '潮州古代石拱桥，是中国四大古桥之一，历史悠久。');
+INSERT INTO `landmark` VALUES ('68', '18092', '潮州著名古镇，保留传统建筑和文化特色。');
+INSERT INTO `landmark` VALUES ('69', '18093', '潮州古老街道，保存众多精美牌坊，展示潮州传统文化。');
 INSERT INTO `landmark` VALUES ('7', '1732', '明清两代皇宫，世界文化遗产，珍贵文物众多，建筑壮丽。');
 INSERT INTO `landmark` VALUES ('8', '1808', '北京著名皇家园林，以昆明湖和万寿山为中心，景色优美。');
 INSERT INTO `landmark` VALUES ('9', '1865', '世界最大城市广场，中华人民共和国象征，重大政治活动场所。');
@@ -9140,7 +9150,12 @@ INSERT INTO `scenic_spot` VALUES ('18085', '康辉旅行社', '2', '深圳', '13
 INSERT INTO `scenic_spot` VALUES ('18086', '招商国旅', '2', '深圳', '88856573', '南山街道南油南海大道2061号新保辉大厦25E', '旅行社', '113.92447', '22.508348', NULL);
 INSERT INTO `scenic_spot` VALUES ('18087', '建南国际旅行社', '2', '深圳', '33355888', '泰然四路4号天安数码时代大厦b座503室', '旅行社', '114.032412', '22.535102', NULL);
 INSERT INTO `scenic_spot` VALUES ('18088', '鹏城美丽乡村', '2', '深圳', '84316936', '大鹏街道', '特色乡村', '114.51568', '22.59543', NULL);
+INSERT INTO `scenic_spot` VALUES ('18089', '敦煌莫高窟', '18', '敦煌', NULL, '敦煌市东南25公里处莫高镇的鸣沙山东麓断崖上', '历史建筑', '94.6607593', '40.1411004', NULL);
 INSERT INTO `scenic_spot` VALUES ('1809', '银狐洞', '0', '北京', '60363236', '下英水村北一区49号', '自然风光', '115.903481', '39.798519', NULL);
+INSERT INTO `scenic_spot` VALUES ('18090', '嘉峪关', '18', '嘉峪关', '9376396110', '嘉峪关市西南隅', NULL, '98.2885388', '39.7722294', NULL);
+INSERT INTO `scenic_spot` VALUES ('18091', '广济桥', '2', '潮州', '2222683', '古城东门外', '历史建筑', '116.65783', '23.662303', NULL);
+INSERT INTO `scenic_spot` VALUES ('18092', '龙湖镇', '2', '潮州', NULL, '潮安区府前路一横街', '历史建筑', '116.649561', '23.55867', NULL);
+INSERT INTO `scenic_spot` VALUES ('18093', '牌坊街', '2', '潮州', NULL, '湘桥区太平路393号', '步行街', '116.649417', '23.661788', NULL);
 INSERT INTO `scenic_spot` VALUES ('181', '浦江园', '5', '上海', NULL, '寺嘴角路(近龙吴路)', '公园/广场', '121.485443', '31.016146', NULL);
 INSERT INTO `scenic_spot` VALUES ('1810', '雍和宫', '0', '北京', '84191906;84191907', '雍和宫大街28号', '历史建筑', '116.417313', '39.947235', NULL);
 INSERT INTO `scenic_spot` VALUES ('1811', '于谦祠', '0', '北京', NULL, '西裱褙胡同甲23号（东单地铁站C东南口步行290米）', '宗教', '116.423264', '39.907684', NULL);
