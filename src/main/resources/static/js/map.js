@@ -90,25 +90,6 @@ districtSearch.search("中国", function (status, result) {
 });
 
 
-// 读取省份地标数据
-var landmarks_data = [];
-function fetchLandmarksByProvince(provinceName) {
-    $.ajax({
-        url: `/landmark/byProvince`,
-        type: 'GET',
-        data: { provinceName: provinceName },
-        success: function(data) {
-            // 将数据存储到全局变量中
-            landmarks_data = data;
-            console.log('Landmarks Data:', landmarks_data);
-        },
-        error: function(xhr, status, error) {
-            console.error('Failed to fetch landmarks:', status, error);
-        }
-    });
-}
-
-
 // map 生成事件，仅出现在刚开始的时候
 map.on("complete", function () {
     for (var i = 0; i < provinceData.length; i++) {
@@ -135,22 +116,43 @@ map.on("complete", function () {
 });
 
 
+// 读取省份地标数据
+function fetchLandmarksByProvince(provinceName) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `http://localhost:8080/landmark/byProvince`,
+            type: 'GET',
+            data: { provinceName: provinceName },
+            success: function(data) {
+                resolve(data);
+            },
+            error: function(xhr, status, error) {
+                reject(error);
+            }
+        });
+    });
+}
+
+async function getLandmarksAndProcess(provinceName) {
+    try {
+        const data = await fetchLandmarksByProvince(provinceName);
+        console.log('Landmarks Data:', data);
+        // console.log('Array Length:', data.length);
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
 // map 双击事件
 var scene_markers = [];
-var gprops;
-
-map.on("dblclick", function (ev) {
+map.on("dblclick", async function (ev) {
     var px = ev.pixel;
     var props = disCountry.getDistrictByContainerPos(px); // 拾取所在位置的行政区
     disProvince.setDistricts(props.adcode + ""); // 显示当前点击的省份
 
-    gprops = props; // !
-    console.log('1');
-    fetchLandmarksByProvince('广东省');
-    console.log('2');
-
     // 设置目标省份缩放和中心点
-
     map.setCenter([props.x, props.y]);
     map.setZoom(adcode2zoom[props.adcode]);
     disProvince.setStyles({
@@ -163,42 +165,59 @@ map.on("dblclick", function (ev) {
     map.remove(scene_markers);
     scene_markers.length = 0;
 
-    // for
-    var scene_marker = new AMap.Marker({
-        // icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
-        position: ev.lnglat
-    });
+    // 更新该省份对应的景点数据
+    var landmarks_data = [];
+    try {
+        landmarks_data = await getLandmarksAndProcess(props.NAME_CHN);
+        console.log('Landmarks Data:', landmarks_data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
 
-    scene_marker.on('click', function() {
-        // 实例化信息窗体
-        var title = '方恒假日酒店<span style="font-size:11px;color:#F00;">价格:318</span>',
-            content = [];
-        content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：北京市朝阳区阜通东大街6号院3号楼东北8.3公里");
-        content.push("电话：010-64733333");
-        content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
-
-        var infoWindow = new AMap.InfoWindow({
-            isCustom: true,  //使用自定义窗体
-            content: createInfoWindow(title, content.join("<br/>")),
-            offset: new AMap.Pixel(16, -45)
+    for (let i = 0 ; i < landmarks_data.length ; i++)
+    {
+        let scene_marker = new AMap.Marker({
+            // icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+            // position: ev.lnglat
+            position: [
+                parseFloat(landmarks_data[i].scenicSpot.longitude),
+                parseFloat(landmarks_data[i].scenicSpot.latitude)
+            ]
         });
 
-        infoWindow.open(map, scene_marker.getPosition());
-    });
+        await scene_marker.on('click', function() {
+            // 实例化信息窗体
+            // console.log(i);
 
-    scene_markers.push(scene_marker);
+            let title = landmarks_data[i].scenicSpot.sceneName + '<span style="font-size:11px;color:#F00;">' + landmarks_data[i].scenicSpot.address + '</span>',
+                content = [];
+            content.push("<img src='images/scenicSpots/" + landmarks_data[i].scenicSpot.sceneName + ".jpg' class='forced-resize' alt='Forced Resized Photo'>" + landmarks_data[i].briefIntro);
+            content.push("<a>服务热线：" + landmarks_data[i].scenicSpot.telephone + "</a>");
+            content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+
+            let infoWindow = new AMap.InfoWindow({
+                isCustom: true,  //使用自定义窗体
+                content: createInfoWindow(title, content.join("<br/>")),
+                position: [
+                    parseFloat(landmarks_data[i].scenicSpot.longitude),
+                    parseFloat(landmarks_data[i].scenicSpot.latitude)
+                ],
+                offset: new AMap.Pixel(16, -45)
+            });
+
+            infoWindow.open(map, scene_marker.getPosition());
+        });
+
+        scene_markers.push(scene_marker);
+    }
+
+    // 将 marker 数据加入 map 中
     map.add(scene_markers);
 
     // 更新标注信息
     updateInfo(props);
 });
 
-console.log('\ngprops:');
-console.log(gprops);
-console.dir(gprops);
-console.log('\nprovinceData:');
-console.log(provinceData);
-console.dir(provinceData);
 
 // map 右击回到大地图视野并初始化
 map.on("rightclick", function () {

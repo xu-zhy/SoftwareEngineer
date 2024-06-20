@@ -7,6 +7,7 @@
     <title>旅游信息地图</title>
     <link rel="stylesheet" href="//a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
     <link rel="stylesheet" href="css/map_page_blankStyle.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         html,
         body,
@@ -14,6 +15,13 @@
             width: 100%;
             height: 100%;
             margin: 0;
+        }
+
+        /*图片强制缩放*/
+        .forced-resize {
+            width: 100px;  /* 设定宽度 */
+            height: 66px; /* 设定高度 */
+            object-fit: fill; /* 强制填充 */
         }
     </style>
 </head>
@@ -32,7 +40,7 @@
                 <a href="index.html">首页导航</a>
             </li>
             <li>
-                <a href="test.html">测试页面</a>
+                <a href="test.html">(热点新闻)测试页面</a>
             </li>
             <li>
                 <a href="blogs.html">旅行空间</a>
@@ -41,12 +49,12 @@
     </div>
     <!-- 搜索模块 -->
     <div class="search">
-        <input type="text" value="请输入关键词" ></input>
+        <input type="text" value="请输入关键词" >
         <button></button>
     </div>
     <!-- 用户模块 -->
     <div class="user">
-        <img src="images/user.png" style="vertical-align: middle">
+        <img src="images/map_page/user.jpg" style="vertical-align: middle">
         Iceline
     </div>
 </div>

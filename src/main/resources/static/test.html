@@ -16,6 +16,7 @@
                 url: `http://localhost:8080/landmark/byProvince`,
                 type: 'GET',
                 data: { provinceName: provinceName },
+                async: true,
                 success: function(data) {
                     // 将数据存储到全局变量中
                     landmarksData = data;
@@ -35,7 +36,7 @@
             landmarksList.innerHTML = ''; // 清空现有列表
             landmarksData.forEach(landmark => {
                 const listItem = document.createElement('li');
-                listItem.textContent = `${landmark.name} (${landmark.location})`;
+                listItem.textContent = `${landmark.landmarkId} (${landmark.briefIntro}) ${landmark.scenicSpot.address}`;
                 landmarksList.appendChild(listItem);
             });
         }
