@@ -57,4 +57,9 @@ public class ScenicSpotController {
             throw new RuntimeException("Error: " + e.getMessage());
         }
     }
+
+    @GetMapping("/search")
+    public List<ScenicSpot> searchProducts(@RequestParam String keyword) {
+        return scenicSpotService.search(keyword);
+    }
 }

@@ -252,3 +252,45 @@
         });
     </script>
     ```
+
+## 景点搜索功能
+- **URL**: http://localhost:8080/scenicSpot/search?keyword=公园
+- **方法**: GET
+- **描述**: 通过关键词搜索
+- **请求参数**:
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | keywords | String | 是   | 关键词 |
+- **响应参数**: 匹配关键词的景点信息列表
+- **测试示例**:
+    ```html
+    <body>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button onclick="searchScenicSpot()">Search</button>
+        <ul id="scenicSpotsList"></ul>
+    </div>
+    
+    <script>
+        function searchScenicSpot() {
+            var keyword = document.getElementById('searchInput').value.trim();
+    
+            fetch('/scenicSpot/search?keyword=' + encodeURIComponent(keyword))
+                .then(response => response.json())
+                .then(scenicSpots => {
+                    var scenicSpotsList = document.getElementById('scenicSpotsList');
+                    scenicSpotsList.innerHTML = '';
+                    scenicSpots.forEach(scenicSpot => {
+                        var li = document.createElement('li');
+                        li.textContent = scenicSpot.sceneName;
+                        scenicSpotsList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error searching scenicSpots:', error);
+                    alert('Error searching scenicSpots');
+                });
+        }
+    </script>
+    </body>
+    ```

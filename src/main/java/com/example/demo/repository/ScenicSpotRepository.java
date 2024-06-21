@@ -8,4 +8,5 @@ import java.util.List;
 public interface ScenicSpotRepository extends JpaRepository<ScenicSpot, String> {
     List<ScenicSpot> findByProvince_ProvinceName(String provinceName);
     ScenicSpot findBySceneName(String sceneName);
+    List<ScenicSpot> findBySceneNameContaining(String keyword);
 }
