@@ -11,11 +11,92 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 21/06/2024 10:11:15
+ Date: 21/06/2024 14:42:32
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for favorite
+-- ----------------------------
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE `favorite`  (
+  `user_id` bigint(20) NOT NULL,
+  `spot_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`user_id`, `spot_id`) USING BTREE,
+  INDEX `favoriteFK2`(`spot_id`) USING BTREE,
+  CONSTRAINT `favoriteFK1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `favoriteFK2` FOREIGN KEY (`spot_id`) REFERENCES `scenic_spot` (`scene_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of favorite
+-- ----------------------------
+INSERT INTO `favorite` VALUES (3, '10290');
+INSERT INTO `favorite` VALUES (6, '10299');
+INSERT INTO `favorite` VALUES (9, '10541');
+INSERT INTO `favorite` VALUES (5, '11139');
+INSERT INTO `favorite` VALUES (1, '11445');
+INSERT INTO `favorite` VALUES (1, '11841');
+INSERT INTO `favorite` VALUES (9, '11900');
+INSERT INTO `favorite` VALUES (8, '12170');
+INSERT INTO `favorite` VALUES (6, '12511');
+INSERT INTO `favorite` VALUES (3, '12812');
+INSERT INTO `favorite` VALUES (9, '13039');
+INSERT INTO `favorite` VALUES (6, '13989');
+INSERT INTO `favorite` VALUES (3, '1426');
+INSERT INTO `favorite` VALUES (13, '14696');
+INSERT INTO `favorite` VALUES (1, '15427');
+INSERT INTO `favorite` VALUES (12, '15574');
+INSERT INTO `favorite` VALUES (4, '15820');
+INSERT INTO `favorite` VALUES (2, '15956');
+INSERT INTO `favorite` VALUES (1, '15963');
+INSERT INTO `favorite` VALUES (2, '16524');
+INSERT INTO `favorite` VALUES (11, '16596');
+INSERT INTO `favorite` VALUES (2, '16845');
+INSERT INTO `favorite` VALUES (1, '17287');
+INSERT INTO `favorite` VALUES (2, '17407');
+INSERT INTO `favorite` VALUES (3, '17477');
+INSERT INTO `favorite` VALUES (9, '17838');
+INSERT INTO `favorite` VALUES (3, '17985');
+INSERT INTO `favorite` VALUES (15, '18089');
+INSERT INTO `favorite` VALUES (15, '18090');
+INSERT INTO `favorite` VALUES (14, '18091');
+INSERT INTO `favorite` VALUES (14, '18092');
+INSERT INTO `favorite` VALUES (14, '18093');
+INSERT INTO `favorite` VALUES (3, '2461');
+INSERT INTO `favorite` VALUES (10, '2537');
+INSERT INTO `favorite` VALUES (4, '319');
+INSERT INTO `favorite` VALUES (9, '4049');
+INSERT INTO `favorite` VALUES (6, '4089');
+INSERT INTO `favorite` VALUES (9, '4341');
+INSERT INTO `favorite` VALUES (13, '5066');
+INSERT INTO `favorite` VALUES (5, '5092');
+INSERT INTO `favorite` VALUES (3, '5134');
+INSERT INTO `favorite` VALUES (6, '5231');
+INSERT INTO `favorite` VALUES (7, '5235');
+INSERT INTO `favorite` VALUES (7, '5264');
+INSERT INTO `favorite` VALUES (1, '556');
+INSERT INTO `favorite` VALUES (6, '5630');
+INSERT INTO `favorite` VALUES (3, '569');
+INSERT INTO `favorite` VALUES (4, '5813');
+INSERT INTO `favorite` VALUES (7, '6025');
+INSERT INTO `favorite` VALUES (4, '6407');
+INSERT INTO `favorite` VALUES (3, '6524');
+INSERT INTO `favorite` VALUES (1, '6626');
+INSERT INTO `favorite` VALUES (3, '7201');
+INSERT INTO `favorite` VALUES (1, '7851');
+INSERT INTO `favorite` VALUES (1, '7890');
+INSERT INTO `favorite` VALUES (1, '8193');
+INSERT INTO `favorite` VALUES (6, '8199');
+INSERT INTO `favorite` VALUES (4, '8263');
+INSERT INTO `favorite` VALUES (7, '8318');
+INSERT INTO `favorite` VALUES (3, '8477');
+INSERT INTO `favorite` VALUES (3, '863');
+INSERT INTO `favorite` VALUES (9, '9092');
+INSERT INTO `favorite` VALUES (8, '9432');
+INSERT INTO `favorite` VALUES (6, '9558');
 
 -- ----------------------------
 -- Table structure for landmark
@@ -18266,10 +18347,25 @@ CREATE TABLE `user`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES (1, 'user1@example.com', 'pass123', 'Chris');
+INSERT INTO `user` VALUES (2, 'user2@example.com', 'pass456', 'Ryan');
+INSERT INTO `user` VALUES (3, 'user3@example.com', 'pass789', 'Joey');
+INSERT INTO `user` VALUES (4, 'user4@example.com', 'pass101', 'Kai');
+INSERT INTO `user` VALUES (5, 'user5@example.com', 'pass112', 'Cody');
+INSERT INTO `user` VALUES (6, 'user6@example.com', 'pass123', 'Eason');
+INSERT INTO `user` VALUES (7, 'user7@example.com', 'pass134', 'Charlie');
+INSERT INTO `user` VALUES (8, 'user8@example.com', 'pass145', 'Liam');
+INSERT INTO `user` VALUES (9, 'user9@example.com', 'pass156', 'Elena');
+INSERT INTO `user` VALUES (10, 'user10@example.com', 'pass167', 'Nora');
+INSERT INTO `user` VALUES (11, 'user11@example.com', 'pass178', 'Zoe');
+INSERT INTO `user` VALUES (12, 'admin1@example.com', 'adminpass1', 'admin1');
+INSERT INTO `user` VALUES (13, 'admin2@example.com', 'adminpass2', 'admin2');
+INSERT INTO `user` VALUES (14, 'lafe@sysu.edu.cn', 'lafe', 'lafe');
+INSERT INTO `user` VALUES (15, 'iceline@sysu.edu.cn', 'iceline', 'iceline');
 
 SET FOREIGN_KEY_CHECKS = 1;

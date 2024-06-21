@@ -19,10 +19,16 @@ public class ScenicSpotService {
     }
 
     public ScenicSpot getScenicSpotBySceneName(String sceneName) {
-        return scenicSpotRepository.findBySceneName(sceneName);
+        return scenicSpotRepository.findBySceneName(sceneName)
+                .orElseThrow(() -> new IllegalArgumentException("Scenic spot not found with sceneName: " + sceneName));
     }
 
     public List<ScenicSpot> search(String keyword) {
         return scenicSpotRepository.findBySceneNameContaining(keyword);
+    }
+
+    public ScenicSpot getScenicSpotBySceneId(String sceneId) {
+        return scenicSpotRepository.findBySceneId(sceneId)
+                .orElseThrow(() -> new IllegalArgumentException("Scenic spot not found with sceneName: " + sceneId));
     }
 }
