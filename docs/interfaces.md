@@ -116,10 +116,139 @@
 ## 通过景区名称获得景区图片
 - **URL**: http://localhost:8080/scenicSpot/image?sceneName=广州塔
 - **方法**: GET
-- **描述**: 根据省份名称（中文）获取该省份的所有地标景点的信息。
+- **描述**: 根据景区名称（中文）获取该景区的图片资源。
 - **请求参数**：
 
     | 参数名       | 类型   | 必填 |    描述    |  
     |:------------:|:------:|:----:|:--------:|  
     | sceneName | String | 是   | 景区名字 |  
 - **响应**: 返回图片文件  
+
+## 通过景区名称获得景区信息
+- **URL**: http://localhost:8080/scenicSpot/bySceneName?sceneName=广州塔
+- **方法**: GET
+- **描述**: 根据景区名称（中文）获取该景区的信息
+- **请求参数**:
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | sceneName | String | 是   | 景区名字 |  
+- **响应参数**:
+  | 字段名       | 类型   | 描述              |  
+  |:------------|:------:|:------------------|  
+  | sceneId      | String | 景区ID           |  
+  | sceneName    | String | 景区名称         |  
+  | cityName     | String | 城市名称         |  
+  | telephone    | String | 联系电话         |  
+  | address      | String | 地址             |  
+  | sceneClass   | String | 景区类别          |  
+  | longitude    | String | 经度              |  
+  | latitude     | String | 纬度             |
+  | province     | Class  | 省份类（外键依赖）  |
+- **响应示例**
+    ```json
+    {
+        "sceneId": "1865",
+        "sceneName": "天安门广场",
+        "cityName": "北京",
+        "telephone": "63095745",
+        "address": "东长安街与广场东侧路交叉口西南角",
+        "sceneClass": null,
+        "longitude": "116.397552",
+        "latitude": "39.903568",
+        "province": {
+            "provinceId": "0",
+            "provinceName": "北京市"
+        }
+    }
+    ```
+## 用户登录逻辑
+- **URL**: http://localhost:8080/page/signin
+- **方法**: POST
+- **描述**: 用户登录
+- **请求参数**:
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | username | String | 是   | 用户名字 |
+  | passward | String | 是   | 用户密码 |
+- **响应状态**:
+  - 200: OK
+  - 401: Unauthorized
+- **参考示例**:
+    ```html
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+    
+            fetch('/page/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return response.text().then(text => { throw new Error(text) });
+                    }
+                })
+                .then(message => {
+                    document.getElementById('message').textContent = message;
+                    window.location.href = '/index.html'; // Assuming there's a welcome page after successful login
+                })
+                .catch(error => {
+                    document.getElementById('message').textContent = error.message;
+                });
+        });
+    </script>
+    ```
+  
+## 用户注册逻辑
+- **URL**: http://localhost:8080/page/signup
+- **方法**: POST
+- **描述**: 用户注册
+- **请求参数**:
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | username | String | 是   | 用户名字 |
+  | passward | String | 是   | 用户密码 |
+  | email | String | 是   | 用户邮箱 |
+- **响应状态**:
+    - 200: OK
+    - 409: Conflict
+- **参考示例**:
+    ```html
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+    
+            fetch('/page/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password, email})
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return response.text().then(text => { throw new Error(text) });
+                    }
+                })
+                .then(message => {
+                    document.getElementById('message').textContent = message;
+                    window.location.href = '/page/signin.html'; // Redirect to login page after successful signup
+                })
+                .catch(error => {
+                    document.getElementById('message').textContent = error.message;
+                });
+        });
+    </script>
+    ```
