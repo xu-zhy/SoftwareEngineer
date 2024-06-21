@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Popup Alert</title>
+    <style>
+        /* Styles for the popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none; /* Initially hidden */
+            text-align: center; /* Center align text */
+        }
+        /* Styles for the overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Button to trigger the popup -->
+<button onclick="showPopup()">Show Popup</button>
+
+<!-- Popup content -->
+<div id="popup" class="popup">
+    <h2>Custom Popup Alert</h2>
+    <p>This is a custom HTML popup alert box.</p>
+    <button onclick="hidePopup()">Close</button>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay"></div>
+
+<script>
+    // Function to show the popup and overlay
+    function showPopup() {
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    // Function to hide the popup and overlay
+    function hidePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
