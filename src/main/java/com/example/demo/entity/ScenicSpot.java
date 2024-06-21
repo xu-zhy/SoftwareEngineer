@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class ScenicSpot {
     @Id
@@ -14,6 +16,7 @@ public class ScenicSpot {
     private String sceneClass;
     private String longitude;
     private String latitude;
+    private String intro;
 
     @ManyToOne
     @JoinColumn(name = "provinceId")
@@ -102,5 +105,13 @@ public class ScenicSpot {
 
     public void setLandmark(Landmark landmark) {
         this.landmark = landmark;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,11 @@ public class ScenicSpotController {
 
     @GetMapping("/bySceneName")
     public ScenicSpot getSceneInfo(@RequestParam String sceneName) {
-        return scenicSpotService.getScenicSpotBySceneName(sceneName);
+        try {
+            return scenicSpotService.getScenicSpotBySceneName(sceneName);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     @GetMapping("/image")
@@ -56,5 +61,10 @@ public class ScenicSpotController {
         } catch (Exception e) {
             throw new RuntimeException("Error: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/search")
+    public List<ScenicSpot> searchProducts(@RequestParam String keyword) {
+        return scenicSpotService.search(keyword);
     }
 }

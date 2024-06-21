@@ -19,17 +19,16 @@ public class ScenicSpotService {
     }
 
     public ScenicSpot getScenicSpotBySceneName(String sceneName) {
-        return scenicSpotRepository.findBySceneName(sceneName);
+        return scenicSpotRepository.findBySceneName(sceneName)
+                .orElseThrow(() -> new IllegalArgumentException("Scenic spot not found with sceneName: " + sceneName));
     }
 
-//    public List<ScenicSpot> getLandmarksByProvinceName(String provinceName) {
-//        // 查询所有省份的景点
-//        List<ScenicSpot> scenicSpots = scenicSpotRepository.findByProvince_ProvinceName(provinceName);
-//        // 筛选出地标景点（landmark字段为'1'）
-//        List<ScenicSpot> landmarks = scenicSpots.stream()
-//                .filter(scenicSpot -> "1".equals(scenicSpot.getLandmark()))
-//                .collect(Collectors.toList());
-//
-//        return landmarks;
-//    }
+    public List<ScenicSpot> search(String keyword) {
+        return scenicSpotRepository.findBySceneNameContaining(keyword);
+    }
+
+    public ScenicSpot getScenicSpotBySceneId(String sceneId) {
+        return scenicSpotRepository.findBySceneId(sceneId)
+                .orElseThrow(() -> new IllegalArgumentException("Scenic spot not found with sceneName: " + sceneId));
+    }
 }
