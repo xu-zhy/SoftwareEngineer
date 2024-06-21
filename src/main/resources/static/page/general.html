@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>景点展示</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .text {
+            text-align: justify;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/frontbar.css">
+</head>
+<body>
+
+
+<!--导航栏-->
+<div class="navbar">
+    <img src="../images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="../index.html">首页导航</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="user-login">
+        <script src="../js/userlogin.js"></script>
+    </div>
+</div>
+<script src="../js/searchbar.js"></script>
+
+
+<!--随机设置背景图片 js-->
+<script>
+    var images = [
+        '/images/map_page/general1.jpg',
+        '/images/map_page/general2.jpg',
+        '/images/map_page/general3.jpg',
+        '/images/map_page/general4.jpg',
+        '/images/map_page/general5.jpg',
+        '/images/map_page/general6.jpg',
+    ];
+
+    // 随机选择图片链接
+    var randomIndex = Math.floor(Math.random() * images.length);
+    var randomImageUrl = images[randomIndex];
+
+    // 设置背景图片
+    document.body.style.backgroundImage = 'url("' + randomImageUrl + '")';
+</script>
+
+<!--基础框架-->
+<div class="container" style="margin-top: 100px">
+    <div class="image">
+        <img id="scenicImage" alt="Scenic Image" src="">
+    </div>
+    <div class="text" id="scenicText">
+        <!-- 文本内容将通过Thymeleaf注入 -->
+        我就是文本!
+    </div>
+</div>
+
+<!--读取图像和文本-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let urlParams = new URLSearchParams(window.location.search);
+        let sceneName = urlParams.get('param1');
+
+        // 在控制台打印参数值
+        console.log('Param1: ', sceneName);
+
+        var databaseData = {
+            imageSrc: '../images/scenicSpots/' + sceneName + '.jpg',
+            textContent: '从数据库加载的文本内容'
+        };
+
+        console.log(databaseData.imageSrc);
+
+        // 获取图片和文本元素
+        var imgElement = document.getElementById('scenicImage');
+        var textElement = document.getElementById('scenicText');
+
+        // 更新图片的 src 属性和文本内容
+        imgElement.src = databaseData.imageSrc;
+        textElement.textContent = databaseData.textContent;
+    });
+</script>
+
+
+</body>
+</html>

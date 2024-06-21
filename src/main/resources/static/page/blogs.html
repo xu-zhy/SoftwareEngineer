@@ -5,6 +5,24 @@
     <title>旅行空间</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
         table {
             width: 50%;
             border-collapse: collapse;
@@ -17,13 +35,33 @@
             text-align: left;
         }
     </style>
+    <link rel="stylesheet" href="../css/frontbar.css">
 </head>
 <body>
 
-<div>
-    <h1>博客</h1>
-    <p>content</p>
-    <a href="../index.html">Back to Index Page</a>
+<!--导航栏-->
+<div class="navbar">
+    <img src="../images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="../index.html">首页导航</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="user-login">
+        <script src="../js/userlogin.js"></script>
+    </div>
+</div>
+<script src="../js/searchbar.js"></script>
+
+
+<div style="padding: 60px;">
+    <h2>博客</h2>
+    <p>滚动页面以查看悬浮导航栏效果。</p>
+    <!-- 添加更多内容以展示效果 -->
 </div>
 
 <h1>Province List</h1>

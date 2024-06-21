@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/map_page_blankStyle.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
         html,
         body,
         #container {
@@ -23,41 +24,45 @@
             height: 66px; /* 设定高度 */
             object-fit: fill; /* 强制填充 */
         }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
     </style>
+    <link rel="stylesheet" href="css/frontbar.css">
 </head>
 <body>
 
-<!--导航栏、搜索框和用户-->
-<div class="header w">
-    <!-- 标志模块 -->
-    <div class="logo">
-        <img src="images/map_page/sysu_logo.jpg">
+<!--导航栏-->
+<div class="navbar">
+    <img src="images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="index.html">首页导航</a>
+        <a href="page/news.html">热点新闻</a>
+        <a href="page/blogs.html">旅行空间</a>
     </div>
-    <!-- 文字导航栏模块 -->
-    <div class="nav">
-        <ul>
-            <li>
-                <a href="index.html">首页导航</a>
-            </li>
-            <li>
-                <a href="page/test.html">(热点新闻)测试页面</a>
-            </li>
-            <li>
-                <a href="page/blogs.html">旅行空间</a>
-            </li>
-        </ul>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <div class="search-results" id="search-results"></div>
     </div>
-    <!-- 搜索模块 -->
-    <div class="search">
-        <input type="text" value="请输入关键词">
-        <button onclick="window.location.href='page/search.html'"></button>
-    </div>
-    <!-- 用户模块 -->
-    <div class="user">
-        <img src="images/map_page/user.jpg" style="vertical-align: middle">
-        <a href="page/signin.html" class="btn">Iceline</a>
+    <div class="user-login">
+        <script src="js/userlogin.js"></script>
     </div>
 </div>
+<script src="js/searchbar.js"></script>
 
 
 <!--地图-->

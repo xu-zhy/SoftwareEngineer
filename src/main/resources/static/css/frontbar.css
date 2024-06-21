@@ -1,0 +1,56 @@
+.navbar img.logo {
+    margin-left: 60px;
+    height: 40px;
+}
+.navbar a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Roboto', sans-serif; /* 修改字体 */
+    font-weight: bold; /* 加粗文字 */
+    font-size: 18px; /* 字体大小 */
+}
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.search-container input[type="text"] {
+    padding: 6px;
+    margin-right: 10px;
+    font-size: 17px;
+    width: 300px; /* 搜索框的长度变量 */
+}
+.search-results {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1001;
+}
+.search-results a {
+    padding: 12px;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+.search-results a:hover {
+    background-color: #ddd;
+}
+.user-login {
+    color: white;
+    margin-right: 60px;
+    font-family: 'Roboto', sans-serif; /* 修改字体 */
+    font-weight: bold; /* 加粗文字 */
+    font-size: 18px; /* 字体大小 */
+}

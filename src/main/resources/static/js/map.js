@@ -193,7 +193,8 @@ map.on("dblclick", async function (ev) {
                 content = [];
             content.push("<img src='images/scenicSpots/" + landmarks_data[i].scenicSpot.sceneName + ".jpg' class='forced-resize' alt='Forced Resized Photo'>" + landmarks_data[i].briefIntro);
             content.push("<a>服务热线：" + landmarks_data[i].scenicSpot.telephone + "</a>");
-            content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+            var html_page = '../page/general.html?param1=' + landmarks_data[i].scenicSpot.sceneName;
+            content.push("<a href=" + html_page + ">详细信息</a>");
 
             let infoWindow = new AMap.InfoWindow({
                 isCustom: true,  //使用自定义窗体
