@@ -31,6 +31,11 @@ public class ScenicSpotController {
         return scenicSpotService.getScenicSpotsByProvinceName(provinceName);
     }
 
+    @GetMapping("/bySceneName")
+    public ScenicSpot getSceneInfo(@RequestParam String sceneName) {
+        return scenicSpotService.getScenicSpotBySceneName(sceneName);
+    }
+
     @GetMapping("/image")
     public ResponseEntity<Resource> getImage(@RequestParam String sceneName) {
         try {

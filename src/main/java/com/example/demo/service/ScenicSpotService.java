@@ -18,6 +18,10 @@ public class ScenicSpotService {
         return scenicSpotRepository.findByProvince_ProvinceName(provinceName);
     }
 
+    public ScenicSpot getScenicSpotBySceneName(String sceneName) {
+        return scenicSpotRepository.findBySceneName(sceneName);
+    }
+
 //    public List<ScenicSpot> getLandmarksByProvinceName(String provinceName) {
 //        // 查询所有省份的景点
 //        List<ScenicSpot> scenicSpots = scenicSpotRepository.findByProvince_ProvinceName(provinceName);
