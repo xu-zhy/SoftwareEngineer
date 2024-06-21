@@ -6,10 +6,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
         body {
+            /*background-image: url('/images/map_page/general1.jpg');*/
             margin: 0;
+            background-size: cover;
             font-family: Arial, sans-serif;
         }
-
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -22,6 +23,27 @@
             z-index: 1000;
         }
 
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image img {
+            width: 60%;
+            /*max-width: 600px;*/
+            border: 5px solid #ddd;
+            border-radius: 10px;
+        }
+
         .text {
             text-align: justify;
         }
@@ -29,7 +51,6 @@
     <link rel="stylesheet" href="../css/frontbar.css">
 </head>
 <body>
-
 
 <!--导航栏-->
 <div class="navbar">
@@ -41,13 +62,61 @@
     </div>
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <!--        <button type="submit"><img src="../images/map_page/search.jpg" alt="Search"></button>-->
         <div class="search-results" id="search-results"></div>
     </div>
     <div class="user-login">
-        <script src="../js/userlogin.js"></script>
+        <script>
+            // 模拟登录状态
+            var isLoggedIn = false; // 更改此变量模拟登录/未登录状态
+            var userName = "用户昵称"; // 模拟用户昵称
+
+            if (isLoggedIn) {
+                document.write('<a href="user.html" style="color: white;">'+ userName + '</a>');
+            } else {
+                document.write('<a href="signin.html" style="color: white;">Sign In</a>');
+            }
+        </script>
     </div>
 </div>
-<script src="../js/searchbar.js"></script>
+
+<script>
+    function search() {
+        var query = document.getElementById('search-input').value;
+        var resultsContainer = document.getElementById('search-results');
+
+        if (query.length > 0) {
+            // 模拟向数据库请求数据
+            var results = ["数据1", "数据2", "数据3", "数据4", "数据5"];
+
+            // 清空之前的结果
+            resultsContainer.innerHTML = '';
+
+            // 显示新的结果
+            results.forEach(function(result) {
+                var a = document.createElement('a');
+                a.href = 'general.html?param1=' + result;
+                a.textContent = result;
+                resultsContainer.appendChild(a);
+            });
+
+            // 显示结果框
+            resultsContainer.style.display = 'block';
+        } else {
+            // 隐藏结果框
+            resultsContainer.style.display = 'none';
+        }
+    }
+
+    // 隐藏搜索结果框（点击其他地方时）
+    document.addEventListener('click', function(event) {
+        var resultsContainer = document.getElementById('search-results');
+        var searchInput = document.getElementById('search-input');
+        if (!resultsContainer.contains(event.target) && !searchInput.contains(event.target)) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+</script>
 
 
 <!--随机设置背景图片 js-->
