@@ -2,12 +2,15 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Favorite;
 import com.example.demo.entity.ScenicSpot;
+import com.example.demo.entity.User;
 import com.example.demo.service.FavoriteService;
 import com.example.demo.service.ScenicSpotService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +36,18 @@ public class FavoriteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addFavorite(@RequestParam String userId, @RequestParam String sceneId) {
+    public ResponseEntity<String> addFavorite(@RequestParam String sceneId, HttpSession session) {
         try {
-            favoriteService.addFavorite(userId, sceneId);
+            User loggedInUser = (User) session.getAttribute("user");
+            if (loggedInUser == null) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User is not logged in");
+            }
+            favoriteService.addFavorite(loggedInUser.getId(), sceneId);
             return ResponseEntity.ok("favorite add successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
 }

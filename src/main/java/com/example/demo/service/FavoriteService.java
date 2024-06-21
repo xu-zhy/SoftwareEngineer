@@ -35,9 +35,9 @@ public class FavoriteService {
         return favorites;
     }
 
-    public void addFavorite(String userId, String sceneId) {
+    public void addFavorite(Long userId, String sceneId) {
         // 查找用户
-        User user = userRepository.findByUserId(Long.parseLong(userId))
+        User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
         // 查找景点
@@ -46,7 +46,7 @@ public class FavoriteService {
 
         // 创建收藏记录
         Favorite favorite = new Favorite();
-        favorite.setUser_id(userId);
+        favorite.setUser_id(userId.toString());
         favorite.setScene_id(sceneId);
 
         // 保存收藏记录

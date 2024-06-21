@@ -1,26 +1,36 @@
-# API 
+# <span id="head1">API </span>
+- [API ](#head1)
+    - [ 通过省份名称获取景点信息](#head2)
+    - [ 通过省份名字返回地标景点](#head3)
+    - [ 通过景区名称获得景区图片](#head4)
+    - [ 通过景区名称获得景区信息](#head5)
+    - [ 用户登录逻辑](#head6)
+    - [ 用户注册逻辑](#head7)
+    - [ 景点搜索功能](#head8)
+    - [ 获取当前登录用户](#head9)
+    - [ 通过用户名查询用户收藏景点](#head10)
+    - [ 用户添加收藏](#head11)
 
-## 通过省份名称获取景点信息
+## <span id="head2"> 通过省份名称获取景点信息</span>
 - **URL**: http://localhost:8080/scenicSpot/byProvince?provinceName=广东省
 - **方法**: GET
 - **描述**: 根据省份名称（中文）查询该省份的所有景区信息。
 - **请求参数**：
-
-    | 参数名       | 类型   | 必填 |    描述    |
-    |:------------:|:------:|:----:|:--------:|
-    | provinceName | String | 是   | 省份名称（中文） |
-- **响应参数**：
-    | 字段名       | 类型   | 描述              |  
-    |:------------|:------:|:------------------|  
-    | sceneId      | String | 景区ID           |  
-    | sceneName    | String | 景区名称         |  
-    | cityName     | String | 城市名称         |  
-    | telephone    | String | 联系电话         |  
-    | address      | String | 地址             |  
-    | sceneClass   | String | 景区类别          |  
-    | longitude    | String | 经度              |  
-    | latitude     | String | 纬度             |
-    | province     | Class  | 省份类（外键依赖）  |
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | provinceName | String | 是   | 省份名称（中文） |
+- **响应参数**：  
+  | 字段名      | 类型   | 描述             |  
+  |:------------|:------:|:-----------------|  
+  | sceneId     | String | 景区ID           |  
+  | sceneName   | String | 景区名称         |  
+  | cityName    | String | 城市名称         |  
+  | telephone   | String | 联系电话         |  
+  | address     | String | 地址             |  
+  | sceneClass  | String | 景区类别         |  
+  | longitude   | String | 经度             |  
+  | latitude    | String | 纬度             |  
+  | province    | Class  | 省份类（外键依赖）|
 - **响应示例**：
     ```json
       [
@@ -54,23 +64,22 @@
           }
       ]
     ```
-  
-## 通过省份名字返回地标景点
+
+## <span id="head3"> 通过省份名字返回地标景点</span>
 - **URL**: http://localhost:8080/landmark/byProvince?provinceName=广东省
 - **方法**: GET
 - **描述**: 根据省份名称（中文）获取该省份的所有地标景点的信息。
 - **请求参数**：
-
-    | 参数名       | 类型   | 必填 |    描述    |  
-    |:------------:|:------:|:----:|:--------:|  
-    | provinceName | String | 是   | 省份名称（中文） |  
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | provinceName | String | 是   | 省份名称（中文） |
 - **响应参数**：
   | 字段名       | 类型   | 描述                    |  
   |:------------|:------:|:------------------------|  
   | landmarkId      | String | 地标ID               |  
   | briefIntro    | String | 地标介绍               |  
-  | scenicSpot     | Class | 景区类（外键依赖）      |  
-  
+  | scenicSpot     | Class | 景区类（外键依赖）      |
+
 - **响应示例**：
     ```json
     [
@@ -113,25 +122,25 @@
     ]
     ```
 
-## 通过景区名称获得景区图片
+## <span id="head4"> 通过景区名称获得景区图片</span>
 - **URL**: http://localhost:8080/scenicSpot/image?sceneName=广州塔
 - **方法**: GET
 - **描述**: 根据景区名称（中文）获取该景区的图片资源。
 - **请求参数**：
 
-    | 参数名       | 类型   | 必填 |    描述    |  
-    |:------------:|:------:|:----:|:--------:|  
-    | sceneName | String | 是   | 景区名字 |  
-- **响应**: 返回图片文件  
+  | 参数名       | 类型   | 必填 |    描述    |  
+      |:------------:|:------:|:----:|:--------:|  
+  | sceneName | String | 是   | 景区名字 |  
+- **响应**: 返回图片文件
 
-## 通过景区名称获得景区信息
+## <span id="head5"> 通过景区名称获得景区信息</span>
 - **URL**: http://localhost:8080/scenicSpot/bySceneName?sceneName=广州塔
 - **方法**: GET
 - **描述**: 根据景区名称（中文）获取该景区的信息
 - **请求参数**:
   | 参数名       | 类型   | 必填 |    描述    |  
   |:------------:|:------:|:----:|:--------:|  
-  | sceneName | String | 是   | 景区名字 |  
+  | sceneName | String | 是   | 景区名字 |
 - **响应参数**:
   | 字段名       | 类型   | 描述              |  
   |:------------|:------:|:------------------|  
@@ -161,7 +170,7 @@
         }
     }
     ```
-## 用户登录逻辑
+## <span id="head6"> 用户登录逻辑</span>
 - **URL**: http://localhost:8080/page/signin
 - **方法**: POST
 - **描述**: 用户登录
@@ -171,8 +180,8 @@
   | username | String | 是   | 用户名字 |
   | passward | String | 是   | 用户密码 |
 - **响应状态**:
-  - 200: OK
-  - 401: Unauthorized
+    - 200: OK
+    - 401: Unauthorized
 - **参考示例**:
     ```html
     <script>
@@ -205,8 +214,8 @@
         });
     </script>
     ```
-  
-## 用户注册逻辑
+
+## <span id="head7"> 用户注册逻辑</span>
 - **URL**: http://localhost:8080/page/signup
 - **方法**: POST
 - **描述**: 用户注册
@@ -253,7 +262,7 @@
     </script>
     ```
 
-## 景点搜索功能
+## <span id="head8"> 景点搜索功能</span>
 - **URL**: http://localhost:8080/scenicSpot/search?keyword=公园
 - **方法**: GET
 - **描述**: 通过关键词搜索
@@ -294,8 +303,22 @@
     </script>
     </body>
     ```
-  
-## 通过用户名查询用户收藏景点
+
+## <span id="head9"> 获取当前登录用户</span>
+- **URL**: http://localhost:8080/page/current-user
+- **方法**: GET
+- **描述**: 获得当前的登录用户
+- **请求参数**: 无
+- **相应参数**:
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|  
+  | userId | Long | 是   | 用户id |
+  | username | String | 是 | 用户名 |
+  | password | String | 是 | 用户密码 |
+  | email | String | 是 | 用户邮箱 |
+- **注意**: 未测试
+
+## <span id="head10"> 通过用户名查询用户收藏景点</span>
 - **URL**: http://localhost:8080/favorite/byUsername?username=lafe
 - **方法**: GET
 - **描述**: 通过用户名查询用户收藏景点
@@ -339,20 +362,17 @@
         }
     ]
     ```
-  
-## 用户添加收藏
+
+## <span id="head11"> 用户添加收藏</span>
 - **URL**: http://localhost:8080/favorite/add
 - **方法**: POST
 - **描述**: 用户添加收藏
 - **请求参数**:
   | 参数名       | 类型   | 必填 |    描述    |  
-  |:------------:|:------:|:----:|:--------:|  
-  | userId | String | 是   | 用户 id |
+  |:------------:|:------:|:----:|:--------:|
   | sceneId | String | 是   | 景点 id |
 - **响应状态**:
     - 200: OK
     - 409: Conflict
 - **注意点**
-  - 未测试是否成功实现
-  - 未进行用户是否登录的判断？前端？后端？
-  - 未确定前端是否可以获得用户 id
+    - 未测试是否成功实现
