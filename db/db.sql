@@ -11,11 +11,25 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 22/06/2024 10:37:14
+ Date: 22/06/2024 11:21:38
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for blog
+-- ----------------------------
+DROP TABLE IF EXISTS `blog`;
+CREATE TABLE `blog`  (
+  `blog_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `blog_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`blog_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of blog
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for favorite
@@ -182,6 +196,20 @@ INSERT INTO `landmark` VALUES ('69', '18093', '潮州古老街道，保存众多
 INSERT INTO `landmark` VALUES ('7', '1732', '明清两代皇宫，世界文化遗产，珍贵文物众多，建筑壮丽。');
 INSERT INTO `landmark` VALUES ('8', '1808', '北京著名皇家园林，以昆明湖和万寿山为中心，景色优美。');
 INSERT INTO `landmark` VALUES ('9', '1865', '世界最大城市广场，中华人民共和国象征，重大政治活动场所。');
+
+-- ----------------------------
+-- Table structure for news
+-- ----------------------------
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE `news`  (
+  `news_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `news_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`news_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of news
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for province
