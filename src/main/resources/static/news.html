@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>热点新闻</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 80%;
+            margin: 100px auto 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image img {
+            width: 60%;
+            /*max-width: 600px;*/
+            border: 5px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .text {
+            text-align: justify;
+        }
+    </style>
+    <link rel="stylesheet" href="css/frontbar.css">
+</head>
+<body>
+
+<!--导航栏-->
+<div class="navbar">
+    <img src="images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="index.html">首页导航</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="user-login" id="userLoginContainer">
+        <script src="js/userlogin.js"></script>
+    </div>
+</div>
+<script src="js/searchbar.js"></script>
+
+
+<!--基础内容-->
+<div id="content"></div>
+<script>
+    function createContainer(imageSrc, textContent, newsUrl) {
+        var container = document.createElement('div');
+        container.className = 'container';
+
+        var imageDiv = document.createElement('div');
+        imageDiv.className = 'image';
+
+        var img = document.createElement('img');
+        img.setAttribute('alt', 'Scenic Image');
+        img.setAttribute('src', imageSrc);
+
+        // 文字
+        var textDiv = document.createElement('div');
+        textDiv.className = 'text';
+        var h2Element = document.createElement('h2');
+        h2Element.textContent = textContent;
+        h2Element.style.fontSize = '24px';
+        h2Element.style.color = '#0056b3';
+        h2Element.style.marginBottom = '10px';
+        h2Element.style.textAlign = 'center';
+
+        // Adding a link to the h2 element
+        var link = document.createElement('a');
+        link.href = newsUrl;
+        link.textContent = ' 新闻链接';
+        h2Element.appendChild(link);
+        textDiv.appendChild(h2Element);
+
+        // Applying CSS to the textDiv
+        textDiv.style.maxWidth = '600px';
+        textDiv.style.margin = '0 auto';
+        textDiv.style.padding = '20px';
+        textDiv.style.background = '#fff';
+        textDiv.style.borderRadius = '10px';
+        textDiv.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+
+
+        imageDiv.appendChild(img);
+        container.appendChild(imageDiv);
+        container.appendChild(textDiv);
+
+        return container;
+    }
+
+    // 读取数据
+    const data = [
+        {imageSrc: 'images/news/news1.jpg', textContent: '帐篷撑起产业空间 营地邂逅“诗和远方”', newsUrl: 'https://www.ctnews.com.cn/chanye/content/2024-06/21/content_161610.html'},
+        {imageSrc: 'images/news/news2.jpg', textContent: '吃在潮州', newsUrl: 'https://www.ctnews.com.cn/zt/content/2024-05/17/content_160184.html'},
+        {imageSrc: 'images/news/news3.jpg', textContent: '住福沈阳', newsUrl: 'https://www.ctnews.com.cn/zt/content/2024-05/17/content_160183.html'},
+        {imageSrc: 'images/news/news4.jpg', textContent: '名单公布！国家级旅游度假区新增22家', newsUrl: 'http://www.toptour.cn/index.php?m=content&c=index&a=show&catid=16&id=30004l'},
+        {imageSrc: 'images/news/news5.jpg', textContent: '张家界永定区举办首届乡村文化旅游节', newsUrl: 'https://www.ctnews.com.cn/xcly/content/2023-10/16/content_151373.html'},
+    ];
+
+    const contentDiv = document.getElementById('content');
+
+    data.forEach(item => {
+        const container = createContainer(item.imageSrc, item.textContent, item.newsUrl);
+        contentDiv.appendChild(container);
+    });
+</script>
+
+
+</body>
+</html>

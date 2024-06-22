@@ -54,3 +54,17 @@
     font-weight: bold; /* 加粗文字 */
     font-size: 18px; /* 字体大小 */
 }
+
+/*搜素框弹出文字*/
+.search-results {
+    background: linear-gradient(to right, #CFDEF3, #E0EAFC);
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    /*max-width: 80%;*/
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.6;
+    border-radius: 8px;
+    z-index: 1000;
+}

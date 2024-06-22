@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户界面</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        body {
+            background: linear-gradient(to right, #2980B9, #6DD5FA, #FFFFFF); /* 从左到右的渐变背景色 */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #2193b0, #6dd5ed); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /*主体*/
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            border-radius: 50%;
+            border: 4px solid #F37335; /* 描边颜色 */
+            width: 80px;
+            height: 80px;
+            object-fit: cover; /* 保持照片比例并裁剪 */
+            margin-right: 20px;
+        }
+        .header .nickname {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .feature {
+            background: linear-gradient(to right, #11998e, #38ef7d); /* 半透明背景，保持颜色相似 */
+            border-radius: 5px;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+            color: white;
+        }
+        .feature:hover {
+            background: linear-gradient(to right, #0e7a72, #2dbf64);
+            color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="css/frontbar.css">
+</head>
+<body>
+
+<!--导航栏-->
+<div class="navbar">
+    <img src="images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="index.html">首页导航</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="user-login" id="userLoginContainer">
+        <script src="js/userlogin.js"></script>
+    </div>
+</div>
+<script src="js/searchbar.js"></script>
+
+
+<div class="container">
+    <!-- 头部区域，包含照片和用户昵称 -->
+    <div class="header">
+        <img id="user-photo" src="images/map_page/user1.jpg" alt="用户照片">
+        <div class="nickname" id="user-nickname">用户昵称</div>
+    </div>
+    <!-- 功能块区域 -->
+    <div class="feature" onclick="location.href='user_profile.html'">查看个人信息</div>
+    <div class="feature" onclick="location.href='user_favorites.html'">查看收藏景点</div>
+    <div class="feature" onclick="location.href='user_comments.html'">我的历史评论</div>
+    <div class="feature" onclick="location.href='user_blogs.html'">我的发布博客</div>
+</div>
+
+<!--设置用户昵称和照片-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 模拟从API获取用户数据
+        fetch('/page/current-user')
+            .then(response => response.json())
+            .then(data => {
+                // 设置用户昵称和照片
+                document.getElementById('user-nickname').textContent = data.username;
+                document.getElementById('user-photo').src = 'images/map_page/user1.jpg';
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+    });
+</script>
+
+
+</body>
+</html>

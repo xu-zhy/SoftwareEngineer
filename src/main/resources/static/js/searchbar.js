@@ -1,19 +1,39 @@
-function search() {
-    var query = document.getElementById('search-input').value;
+// 志勇的搜索景点关键词代码
+function searchScenicSpot() {
+    var keyword = document.getElementById('search-input').value.trim();
+
+    return fetch('/scenicSpot/search?keyword=' + encodeURIComponent(keyword))
+        .then(response => response.json())
+        .then(scenicSpots => {
+            // console.log('source: ', scenicSpots);
+            return scenicSpots;
+        })
+        .catch(error => {
+            console.error('Error searching scenicSpots:', error);
+            alert('Error searching scenicSpots');
+            return [];
+        });
+}
+
+
+async function search() {
     var resultsContainer = document.getElementById('search-results');
 
-    if (query.length > 0) {
-        // 模拟向数据库请求数据
-        var results = ["数据1", "数据2", "数据3", "数据4", "数据5"];
+    // 向数据库请求数据
+    // var results = ["数据1", "数据2", "数据3", "数据4", "数据5"];
+    var results = await searchScenicSpot();
+    console.log(results);
 
+    if (results.length > 0) {
         // 清空之前的结果
         resultsContainer.innerHTML = '';
 
         // 显示新的结果
         results.forEach(function(result) {
             var a = document.createElement('a');
-            a.href = 'general.html?param1=' + result;
-            a.textContent = result;
+            // console.log('result: ', result.sceneName);
+            a.href = 'general.html?param1=' + result.sceneName;
+            a.textContent = result.sceneName;
             resultsContainer.appendChild(a);
         });
 

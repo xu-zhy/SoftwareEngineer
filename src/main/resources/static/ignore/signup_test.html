@@ -2,56 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>注册页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
     <style>
         body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
-        background-color: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
         }
         .container h2 {
-        margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         .container input {
-        width: calc(100% - 2rem);
-        padding: 0.5rem;
-        margin: 0.5rem 0;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+            width: calc(100% - 2rem);
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         .container button {
-        width: 100%;
-        padding: 0.5rem;
-        margin-top: 1rem;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
         .container button:hover {
-        background-color: #0056b3;
+            background-color: #0056b3;
         }
         .container p {
-        margin-top: 1rem;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-
 <div class="container">
     <h2>Sign Up</h2>
     <form id="signupForm" method="post">
@@ -60,7 +60,7 @@
         <input type="email" id="email" name="email" placeholder="Email" required>
         <button type="submit">Sign Up</button>
     </form>
-    <p>Already have an account? <a href="signin.html">Login</a></p>
+    <p>Already have an account? <a href="../signin.html">Login</a></p>
     <div id="message"></div>
 </div>
 
@@ -87,13 +87,12 @@
             })
             .then(message => {
                 document.getElementById('message').textContent = message;
-                window.location.href = '/page/signin.html'; // Redirect to login page after successful signup
+                window.location.href = '../signin.html'; // Redirect to login page after successful signup
             })
             .catch(error => {
                 document.getElementById('message').textContent = error.message;
             });
     });
 </script>
-
 </body>
 </html>

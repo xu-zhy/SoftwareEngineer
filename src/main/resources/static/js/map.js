@@ -191,9 +191,11 @@ map.on("dblclick", async function (ev) {
 
             let title = landmarks_data[i].scenicSpot.sceneName + '<span style="font-size:11px;color:#F00;">' + landmarks_data[i].scenicSpot.address + '</span>',
                 content = [];
+            let telephone = landmarks_data[i].scenicSpot.telephone;
+            if (telephone == null) telephone = "暂无官方联系方式";
             content.push("<img src='images/scenicSpots/" + landmarks_data[i].scenicSpot.sceneName + ".jpg' class='forced-resize' alt='Forced Resized Photo'>" + landmarks_data[i].briefIntro);
-            content.push("<a>服务热线：" + landmarks_data[i].scenicSpot.telephone + "</a>");
-            var html_page = '../page/general.html?param1=' + landmarks_data[i].scenicSpot.sceneName;
+            content.push("<a>服务热线：" + telephone + "</a>");
+            var html_page = 'general.html?param1=' + landmarks_data[i].scenicSpot.sceneName;
             content.push("<a href=" + html_page + ">详细信息</a>");
 
             let infoWindow = new AMap.InfoWindow({

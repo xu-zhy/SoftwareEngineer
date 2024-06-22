@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>用户登录</title>
+    <title>登录界面</title>
     <style>
         * {
             margin: 0;
@@ -61,25 +61,11 @@
             padding: 10px;
             width: 100%;
             margin-top: 40px;
-            background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            background-image: linear-gradient(to right, #84fab0, #8fd3f4);
             color: #2c3e50;
         }
         .login-wrapper button a:hover {
-            background-color: #0056b3;
-        }
-
-        .popup button {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 1rem;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .popup button:hover {
-            background-color: #0f9b0f;
+            background-image: linear-gradient(to right, #83d6a2, #8bbfd9);
         }
 
         .msg {
@@ -106,6 +92,19 @@
             display: none; /* Initially hidden */
             text-align: center; /* Center align text */
         }
+        .popup button {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #0f9b0f;
+        }
         /* Styles for the overlay */
         .overlay {
             position: fixed;
@@ -124,19 +123,16 @@
 <!--https://blog.csdn.net/hdp134793/article/details/131251093-->
 <div class="container">
     <div class="login-wrapper">
-        <div class="header">Login</div>
+        <div class="header">登录</div>
 <!--        <div class="form-wrapper">-->
         <form id="login-btn" method="post">
             <input type="text" id="username" placeholder="username" class="input-item">
             <input type="password" id="password" placeholder="password" class="input-item" autocomplete="off">
             <button type="submit">Login</button>
-<!--            <div class="btn" id="login-btn">-->
-<!--                <a>Login</a>-->
-<!--            </div>-->
         </form>
         <div class="msg">
-            Don't have account?
-            <a href="signup.html">Sign up</a>
+            <p>还未创建账号? <a href="signup.html">Sign up</a></p>
+            <p>回到主页 <a href="index.html">Go back</a></p>
         </div>
     </div>
 </div>
@@ -151,7 +147,7 @@
         console.log('input', username, password);
 
         fetch('/page/signin', {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>景点展示</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        body {
+            /*background-image: url('/images/map_page/general1.jpg');*/
+            margin: 0;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #22c1c3, #fdbb2d); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 80%;
+            margin: 100px auto 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image img {
+            width: 60%;
+            /*max-width: 600px;*/
+            border: 5px solid #ddd;
+            border-radius: 10px;
+        }
+
+        /*文字排版设计*/
+        .text {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .text h2 {
+            font-size: 24px;
+            color: #0056b3;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .text p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .text .address, .text .city, .text .phone {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .text .description {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/frontbar.css">
+</head>
+<body>
+
+
+<!--导航栏-->
+<div class="navbar">
+    <img src="images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="index.html">首页导航</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <!--        <button type="submit"><img src="../images/map_page/search.jpg" alt="Search"></button>-->
+        <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="user-login" id="userLoginContainer">
+        <script src="js/userlogin.js"></script>
+    </div>
+</div>
+<script src="js/searchbar.js"></script>
+
+
+<!--随机设置背景图片 js-->
+<script src="js/bodyImgRandom.js"></script>
+
+
+<!--基础框架-->
+<div class="container">
+    <div class="image">
+        <img id="scenicImage" alt="Scenic Image" src="">
+    </div>
+    <div class="text" id="scenicText">
+        <h2>不存在该景点信息，请回到主页面或者刷新重试。</h2>
+        <p class="address"></p>
+        <p class="city"></p>
+        <p class="phone"></p>
+        <p class="description"></p>
+    </div>
+</div>
+
+<!--读取图像和文本-->
+<script>
+    function searchScenicSpot(sceneName) {
+        return fetch('/scenicSpot/search?keyword=' + sceneName)
+            .then(response => response.json())
+            .then(scenicSpots => {
+                // console.log('source: ', scenicSpots);
+                return scenicSpots;
+            })
+            .catch(error => {
+                console.error('Error searching scenicSpots:', error);
+                alert('Error searching scenicSpots');
+                return [];
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        let urlParams = new URLSearchParams(window.location.search);
+        let sceneName = urlParams.get('param1');
+
+        // 在控制台打印参数值
+        console.log('Param1: ', sceneName);
+
+        // 获取元素
+        // var databaseData = {
+        //     imageSrc: '../images/scenicSpots/' + sceneName + '.jpg',
+        //     textContent: '从数据库加载的文本内容'
+        // };
+        var databaseData = await searchScenicSpot(sceneName);
+        console.log(databaseData);
+
+        if (databaseData.length === 1) {
+            // match
+            // 获取图片和文本元素
+            databaseData = databaseData[0];
+            const imgElement = document.getElementById('scenicImage');
+            // const textElement = document.getElementById('scenicText');
+            const addressElement = document.querySelector('.address');
+            const cityElement = document.querySelector('.city');
+            const phoneElement = document.querySelector('.phone');
+            const descriptionElement = document.querySelector('.description');
+
+            // 修改内容
+            var telephone = databaseData.telephone;
+            if (telephone == null) telephone = '暂无官方联系方式';
+
+            imgElement.src = '/images/scenicSpots/' + sceneName + '.jpg';
+            // textElement.textContent = databaseData.textContent;
+            addressElement.textContent = '景区具体地址：' + databaseData.address;
+            cityElement.textContent = '景区所在省份' + databaseData.cityName;
+            phoneElement.textContent = '景区联系电话：' + telephone;
+            descriptionElement.textContent = '景区介绍：\n   ' + databaseData.intro;
+
+            // 修改标题
+            const titleElement = document.querySelector('h2');
+            titleElement.textContent = databaseData.sceneName;
+        } else if (databaseData.length === 0) {
+            // no match
+            // do nothing
+            console.log("No match data.");
+        } else {
+            // error
+            console.error("Error databaseData give too much data.");
+        }
+    });
+</script>
+
+
+</body>
+</html>

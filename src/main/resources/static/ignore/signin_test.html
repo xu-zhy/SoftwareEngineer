@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,14 +37,14 @@
             width: 100%;
             padding: 0.5rem;
             margin-top: 1rem;
-            background-color: #007bff;
+            background-color: #5cb85c;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .container button:hover {
-            background-color: #0056b3;
+            background-color: #4cae4c;
         }
         .container p {
             margin-top: 1rem;
@@ -53,30 +53,28 @@
 </head>
 <body>
 <div class="container">
-    <h2>Sign Up</h2>
-    <form id="signupForm" method="post">
+    <h2>Login</h2>
+    <form id="loginForm" method="post">
         <input type="text" id="username" name="username" placeholder="Username" required>
         <input type="password" id="password" name="password" placeholder="Password" required>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Login</button>
     </form>
-    <p>Already have an account? <a href="signin.html">Login</a></p>
+    <p>Don't have an account? <a href="../signup.html">Sign Up</a></p>
     <div id="message"></div>
 </div>
 
 <script>
-    document.getElementById('signupForm').addEventListener('submit', function (event) {
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        const email = document.getElementById('email').value;
 
-        fetch('/page/signup', {
+        fetch('/page/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password, email})
+            body: JSON.stringify({ username, password })
         })
             .then(response => {
                 if (response.ok) {
@@ -87,7 +85,7 @@
             })
             .then(message => {
                 document.getElementById('message').textContent = message;
-                window.location.href = '/page/signin.html'; // Redirect to login page after successful signup
+                window.location.href = '/index.html'; // Assuming there's a welcome page after successful login
             })
             .catch(error => {
                 document.getElementById('message').textContent = error.message;

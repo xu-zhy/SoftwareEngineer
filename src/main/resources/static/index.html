@@ -51,25 +51,15 @@
     <img src="images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
     <div>
         <a href="index.html">首页导航</a>
-        <a href="page/news.html">热点新闻</a>
-        <a href="page/blogs.html">旅行空间</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
     </div>
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search..." oninput="search()">
         <div class="search-results" id="search-results"></div>
     </div>
-    <div class="user-login">
-        <script>
-            // 模拟登录状态
-            var isLoggedIn = false; // 更改此变量模拟登录/未登录状态
-            var userName = "用户昵称"; // 模拟用户昵称
-
-            if (isLoggedIn) {
-                document.write('<a href="page/user.html" style="color: white;">'+ userName + '</a>');
-            } else {
-                document.write('<a href="page/signin.html" style="color: white;">Sign In</a>');
-            }
-        </script>
+    <div class="user-login" id="userLoginContainer">
+        <script src="js/userlogin.js"></script>
     </div>
 </div>
 <script src="js/searchbar.js"></script>
