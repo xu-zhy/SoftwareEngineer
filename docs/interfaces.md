@@ -10,6 +10,7 @@
     - [ 获取当前登录用户](#head9)
     - [ 通过用户名查询用户收藏景点](#head10)
     - [ 用户添加收藏](#head11)
+    - [ 检查用户收藏状态](#head12)
 
 ## <span id="head2"> 通过省份名称获取景点信息</span>
 - **URL**: http://localhost:8080/scenicSpot/byProvince?provinceName=广东省
@@ -373,6 +374,22 @@
   | sceneId | String | 是   | 景点 id |
 - **响应状态**:
     - 200: OK
-    - 409: Conflict
+    - 409: Conflict 
+    - 401: UNAUTHORIZED
 - **注意点**
     - 未测试是否成功实现
+
+## <span id="head12"> 检查用户收藏状态</span>
+- **URL**: http://localhost:8080/favorite/check?sceneId=1
+- **方法**: GET
+- **描述**: 检查用户是否已收藏
+- **请求参数**:
+  | 参数名       | 类型   | 必填 |    描述    |  
+  |:------------:|:------:|:----:|:--------:|
+  | sceneId | String | 是   | 景点 id |
+- **响应状态**:
+  - 401: UNAUTHORIZED
+  - 302: FOUND
+  - 404: NON_FOUND
+- **注意点**
+  - 未测试是否成功实现
