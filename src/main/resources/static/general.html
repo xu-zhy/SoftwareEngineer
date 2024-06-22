@@ -117,8 +117,8 @@
 
 <!--读取图像和文本-->
 <script>
-    function searchScenicSpot(sceneName) {
-        return fetch('/scenicSpot/search?keyword=' + sceneName)
+    function searchTargetScene(sceneName) {
+        return fetch('/scenicSpot/bySceneName?sceneName=' + encodeURIComponent(sceneName))
             .then(response => response.json())
             .then(scenicSpots => {
                 // console.log('source: ', scenicSpots);
@@ -143,13 +143,15 @@
         //     imageSrc: '../images/scenicSpots/' + sceneName + '.jpg',
         //     textContent: '从数据库加载的文本内容'
         // };
-        var databaseData = await searchScenicSpot(sceneName);
-        console.log(databaseData);
+        var databaseData = await searchTargetScene(sceneName);
+        console.log('source: ', databaseData);
 
-        if (databaseData.length === 1) {
+        if (databaseData == null) {
+            // no match
+            console.log("No match data.");
+        } else {
             // match
             // 获取图片和文本元素
-            databaseData = databaseData[0];
             const imgElement = document.getElementById('scenicImage');
             // const textElement = document.getElementById('scenicText');
             const addressElement = document.querySelector('.address');
@@ -164,20 +166,13 @@
             imgElement.src = '/images/scenicSpots/' + sceneName + '.jpg';
             // textElement.textContent = databaseData.textContent;
             addressElement.textContent = '景区具体地址：' + databaseData.address;
-            cityElement.textContent = '景区所在省份' + databaseData.cityName;
+            cityElement.textContent = '景区所在省份：' + databaseData.cityName;
             phoneElement.textContent = '景区联系电话：' + telephone;
             descriptionElement.textContent = '景区介绍：\n   ' + databaseData.intro;
 
             // 修改标题
             const titleElement = document.querySelector('h2');
             titleElement.textContent = databaseData.sceneName;
-        } else if (databaseData.length === 0) {
-            // no match
-            // do nothing
-            console.log("No match data.");
-        } else {
-            // error
-            console.error("Error databaseData give too much data.");
         }
     });
 </script>

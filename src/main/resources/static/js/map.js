@@ -136,7 +136,7 @@ function fetchLandmarksByProvince(provinceName) {
 async function getLandmarksAndProcess(provinceName) {
     try {
         const data = await fetchLandmarksByProvince(provinceName);
-        console.log('Landmarks Data:', data);
+        // console.log('Landmarks Data:', data);
         // console.log('Array Length:', data.length);
         return data;
     } catch (error) {
