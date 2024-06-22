@@ -35,6 +35,11 @@ public class FavoriteService {
         return favorites;
     }
 
+    public Boolean findFavoriteByUserIdAndScenicSpotId(Long userId, String scenicSpotId) {
+        Optional<Favorite> existingFavorite = favoriteRepository.findByUserIdAndSceneId(userId.toString(), scenicSpotId);
+        return existingFavorite.isPresent();
+    }
+
     public void addFavorite(Long userId, String sceneId) {
         // 查找用户
         User user = userRepository.findByUserId(userId)

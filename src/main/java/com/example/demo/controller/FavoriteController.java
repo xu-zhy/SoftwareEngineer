@@ -50,4 +50,20 @@ public class FavoriteController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
+
+    @GetMapping("/check")
+    public ResponseEntity<String> checkFavorite(@RequestParam String sceneId, HttpSession session) {
+        try {
+            User loggedInUser = (User) session.getAttribute("user");
+            if (loggedInUser == null) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User is not logged in");
+            }
+            if (favoriteService.findFavoriteByUserIdAndScenicSpotId(loggedInUser.getId(), sceneId)) {
+                return ResponseEntity.status(HttpStatus.FOUND).body("favorite found");
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("favorite not found");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+    }
 }
