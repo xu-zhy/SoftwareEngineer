@@ -212,7 +212,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ sceneId })
+                body: String( sceneId )
             })
 
             await console.log('update favorite response:', response);
