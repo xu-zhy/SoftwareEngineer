@@ -42,10 +42,11 @@ public class FavoriteService {
 
     public void addFavorite(Long userId, String sceneId) {
         // 查找用户
-        User user = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+//        User user = userRepository.findByUserId(userId)
+//                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
         // 查找景点
+
         ScenicSpot scenicSpot = scenicSpotRepository.findBySceneId(sceneId)
                 .orElseThrow(() -> new IllegalArgumentException("Scenic spot not found with id: " + sceneId));
 

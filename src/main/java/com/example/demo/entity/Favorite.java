@@ -12,11 +12,11 @@ public class Favorite {
     private String sceneId;
 
     // Getters and Setters
-    public Long getFavorite_id() {
+    public Long getFavoriteId() {
         return favoriteId;
     }
 
-    public void setFavorite_id(Long favorite_id) {
+    public void setFavoriteId(Long favorite_id) {
         this.favoriteId = favorite_id;
     }
 
