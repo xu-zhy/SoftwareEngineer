@@ -43,11 +43,14 @@ public class UserController {
 
     @GetMapping("/current-user")
     public ResponseEntity<User> getCurrentUser(HttpSession session) {
-        try {
-            User user = (User) session.getAttribute("user");
-            return ResponseEntity.ok(user);
-        } catch (NullPointerException e) {
+        User user = (User) session.getAttribute("user");
+
+        // 如果用户对象为null，说明用户未登录，返回401状态
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
+
+        // 用户对象存在，返回200状态和用户对象
+        return ResponseEntity.ok(user);
     }
 }
