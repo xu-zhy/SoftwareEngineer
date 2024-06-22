@@ -36,11 +36,14 @@ public class FavoriteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addFavorite(@RequestParam String sceneId, HttpSession session) {
+    public ResponseEntity<String> addFavorite(@RequestBody String sceneId, HttpSession session) {
         try {
             User loggedInUser = (User) session.getAttribute("user");
             if (loggedInUser == null) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User is not logged in");
+            }
+            if(favoriteService.findFavoriteByUserIdAndScenicSpotId(loggedInUser.getId(), sceneId)){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Favorite already exists");
             }
             favoriteService.addFavorite(loggedInUser.getId(), sceneId);
             return ResponseEntity.ok("favorite add successfully");
