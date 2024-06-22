@@ -71,6 +71,27 @@
             margin-top: 20px;
             font-size: 16px;
         }
+
+        /*收藏按钮*/
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn.favorite {
+            background-color: #FFD700;
+        }
+        .btn.favorite::after {
+            content: '已收藏';
+        }
+        .btn:not(.favorite)::after {
+            content: '未收藏';
+        }
     </style>
     <link rel="stylesheet" href="css/frontbar.css">
 </head>
@@ -108,6 +129,7 @@
     </div>
     <div class="text" id="scenicText">
         <h2>不存在该景点信息，请回到主页面或者刷新重试。</h2>
+        <button id="favorite-btn" class="btn"></button>
         <p class="address"></p>
         <p class="city"></p>
         <p class="phone"></p>
@@ -117,6 +139,7 @@
 
 <!--读取图像和文本-->
 <script>
+    // 按景点名获取景点信息
     function searchTargetScene(sceneName) {
         return fetch('/scenicSpot/bySceneName?sceneName=' + encodeURIComponent(sceneName))
             .then(response => response.json())
@@ -131,6 +154,35 @@
             });
     }
 
+
+    // 更新收藏信息
+    async function updateFavorite(sceneId) {
+        try {
+            const response = await fetch('/favorite/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sceneId })
+            })
+
+            console.log('add favorite response:', response);
+            console.log('add favorite response:', response.text());
+
+            if (response.ok) {
+                let object = await response.json();
+                // await console.log(a);
+                // await console.log(a.userName);
+                return object;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            throw error; // Re-throwing the error to propagate it further
+        }
+    }
+
+
     document.addEventListener('DOMContentLoaded', async function() {
         let urlParams = new URLSearchParams(window.location.search);
         let sceneName = urlParams.get('param1');
@@ -144,7 +196,7 @@
         //     textContent: '从数据库加载的文本内容'
         // };
         var databaseData = await searchTargetScene(sceneName);
-        console.log('source: ', databaseData);
+        console.log('data source: ', databaseData);
 
         if (databaseData == null) {
             // no match
@@ -173,6 +225,23 @@
             // 修改标题
             const titleElement = document.querySelector('h2');
             titleElement.textContent = databaseData.sceneName;
+
+
+            // 按钮
+            const favoriteBtn = document.getElementById('favorite-btn');
+            const isFavorited = updateFavorite(''); // 获取状态
+            // 设置初始状态
+            if (isFavorited) {
+                favoriteBtn.classList.add('favorite');
+            }
+            // 点击事件切换收藏状态
+            favoriteBtn.addEventListener('click', function () {
+                favoriteBtn.classList.toggle('favorite');
+                const newStatus = favoriteBtn.classList.contains('favorite');
+                // 更新收藏状态到服务器
+                updateFavorite('');
+            });
+
         }
     });
 </script>

@@ -147,7 +147,7 @@
         console.log('input', username, password);
 
         fetch('/page/signin', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -163,10 +163,12 @@
             })
             .then(message => {
                 // document.getElementById('error-msg').textContent = 'Invalid username or password.';
+                console.log(message);
                 window.location.href = 'user.html'; // Assuming there's a welcome page after successful login
             })
             .catch(error => {
                 // document.getElementById('error-msg').textContent = 'An error occurred. Please try again later.';
+                console.log(error);
                 showPopup('Invalid username or password.');
             });
     });

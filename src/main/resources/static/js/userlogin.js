@@ -8,26 +8,35 @@ document.addEventListener("DOMContentLoaded", async function() {
                     'Content-Type': 'application/json'
                 },
             })
-            console.log(response);
 
-            if (!response.ok) {
-                // throw new Error('Network response was not ok');
-                console.error('Connection network.')
+            if (response.ok) {
+                let object = await response.json();
+                // await console.log(a);
+                // await console.log(a.userName);
+                return object;
+            } else {
+                return null;
             }
-
-            return response;
         } catch (error) {
-            throw error; // Re-throwing the error to propagate it further
+            // throw error; // Re-throwing the error to propagate it further
+            console.log('user login status:', error);
         }
     }
 
     // 登录状态
-    var response = await fetchUserData();
+    var object = await fetchUserData();
     // var response = await result.response;
-    console.log(response);
+    console.log('User login:', object);
 
     var isLoggedIn = false; // 更改此变量模拟登录/未登录状态
     var userName = "nickname"; // 模拟用户昵称
+
+    if (object == null) {
+        // no change
+    } else {
+        isLoggedIn = true;
+        userName = object.username;
+    }
 
     // 获取要操作的 div 元素
     var userLoginContainer = document.getElementById('userLoginContainer');

@@ -2,9 +2,165 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>用户个人信息</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4); /* 渐变色 */
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 80%;
+            margin: 100px auto 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .image img {
+            width: 60%;
+            /*max-width: 600px;*/
+            border: 5px solid #ddd;
+            border-radius: 10px;
+        }
+
+        /*文字排版设计*/
+        .text {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .text h2 {
+            font-size: 24px;
+            color: #0056b3;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .text p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .text .address, .text .city, .text .phone {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .text .description {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/frontbar.css">
 </head>
 <body>
+
+<!--导航栏-->
+<div class="navbar">
+    <img src="images/map_page/sysu_logo.jpg" alt="Logo" class="logo">
+    <div>
+        <a href="index.html">首页导航</a>
+        <a href="news.html">热点新闻</a>
+        <a href="blogs.html">旅行空间</a>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." oninput="search()">
+        <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="user-login" id="userLoginContainer">
+        <script src="js/userlogin.js"></script>
+    </div>
+</div>
+<script src="js/searchbar.js"></script>
+
+
+<!--基础框架-->
+<div class="container">
+    <div class="image">
+        <img id="scenicImage" alt="Scenic Image" src="">
+    </div>
+    <div class="text" id="scenicText">
+        <h2>不存在该用户信息，请回到主页面或者刷新重试。</h2>
+        <p class="username"></p>
+        <p class="password"></p>
+        <p class="email"></p>
+    </div>
+</div>
+
+<script>
+    async function fetchUserData() {
+        try {
+            const response = await fetch('/page/current-user', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+
+            if (response.ok) {
+                let object = await response.json();
+                // await console.log(a);
+                // await console.log(a.userName);
+                return object;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            // throw error; // Re-throwing the error to propagate it further
+            console.log('user login status:', error);
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        // 获取元素
+        var userData = await fetchUserData();
+        var userPhoto = 'images/map_page/user1.jpg';
+        console.log('user data source: ', userData);
+
+        if (userData == null) {
+            // no match
+            console.log("No match data.");
+        } else {
+            // match
+            // 获取图片和文本元素
+            const imgElement = document.getElementById('scenicImage');
+            const usernameElement = document.querySelector('.username');
+            const passwordElement = document.querySelector('.password');
+            const emailElement = document.querySelector('.email');
+
+            // 修改内容
+            imgElement.src = userPhoto;
+            usernameElement.textContent = '用户昵称：' + userData.username;
+            passwordElement.textContent = '用户密码：' + userData.password;
+            emailElement.textContent = '用户邮箱：' + userData.email;
+
+            // 修改标题
+            const titleElement = document.querySelector('h2');
+            titleElement.textContent = '个人用户信息界面';
+        }
+    });
+</script>
 
 </body>
 </html>
