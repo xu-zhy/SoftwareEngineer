@@ -154,6 +154,16 @@
             });
     }
 
+    // 判断是否收藏
+    function judgeFavorite(sceneId) {
+        return fetch('/favorite/check?sceneId=' + encodeURIComponent(sceneId))
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                console.error('Error searching Favorites:', error);
+            });
+    }
 
     // 更新收藏信息
     async function updateFavorite(sceneId) {
@@ -229,17 +239,18 @@
 
             // 按钮
             const favoriteBtn = document.getElementById('favorite-btn');
-            const isFavorited = updateFavorite(''); // 获取状态
+            const isFavorited = await judgeFavorite(databaseData.sceneId); // 获取状态
+            console.log('judge:', isFavorited);
             // 设置初始状态
-            if (isFavorited) {
+            if (isFavorited.status === 302) {
                 favoriteBtn.classList.add('favorite');
             }
             // 点击事件切换收藏状态
             favoriteBtn.addEventListener('click', function () {
                 favoriteBtn.classList.toggle('favorite');
-                const newStatus = favoriteBtn.classList.contains('favorite');
+                // const newStatus = favoriteBtn.classList.contains('favorite');
                 // 更新收藏状态到服务器
-                updateFavorite('');
+                updateFavorite(databaseData.sceneId);
             });
 
         }

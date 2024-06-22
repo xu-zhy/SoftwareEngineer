@@ -117,7 +117,7 @@
 
     // 收藏信息
     function fetchFavoriteData(username) {
-        return fetch('/scenicSpot/favorite/byUsername?username=' + username)
+        return fetch('/favorite/byUsername?username=' + username)
             .then(response => response.json())
             .then(favorite => {
                 // console.log('Favorite: ', favorite);
