@@ -179,30 +179,15 @@
         var favoritesData = await fetchFavoriteData(userdata.username);
         console.log('username: ', userdata.username);
         console.log('Favorite: ', favoritesData);
-        const data = [
-            {
-                imageSrc: 'images/news/news1.jpg',
-                textContent: '帐篷撑起产业空间 营地邂逅“诗和远方”',
-                newsUrl: 'general.html'
-            },
-            {imageSrc: 'images/news/news2.jpg', textContent: '吃在潮州', newsUrl: 'general.html'},
-            {imageSrc: 'images/news/news3.jpg', textContent: '住福沈阳', newsUrl: 'general.html'},
-            {
-                imageSrc: 'images/news/news4.jpg',
-                textContent: '名单公布！国家级旅游度假区新增22家',
-                newsUrl: 'general.html'
-            },
-            {
-                imageSrc: 'images/news/news5.jpg',
-                textContent: '张家界永定区举办首届乡村文化旅游节',
-                newsUrl: 'general.html'
-            },
-        ];
+
+        const basicSrc = 'images/scenicSpots/';
+        const basicUrl = 'general.html?param1=';
 
         const contentDiv = document.getElementById('content');
 
-        data.forEach(item => {
-            const container = createContainer(item.imageSrc, item.textContent, item.newsUrl);
+        favoritesData.forEach(item => {
+            const sceneName = item.sceneName;
+            const container = createContainer(basicSrc + sceneName + '.jpg', sceneName, basicUrl + sceneName);
             contentDiv.appendChild(container);
         });
     });

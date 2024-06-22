@@ -36,7 +36,7 @@ public class FavoriteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addFavorite(@RequestParam String sceneId, HttpSession session) {
+    public ResponseEntity<String> addFavorite(@RequestBody String sceneId, HttpSession session) {
         try {
             User loggedInUser = (User) session.getAttribute("user");
             if (loggedInUser == null) {
