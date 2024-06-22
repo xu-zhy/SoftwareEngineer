@@ -92,6 +92,45 @@
         .btn:not(.favorite)::after {
             content: '未收藏';
         }
+
+        /* Styles for the popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none; /* Initially hidden */
+            text-align: center; /* Center align text */
+        }
+        .popup button {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background-color: #0f9b0f;
+        }
+        /* Styles for the overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none; /* Initially hidden */
+        }
     </style>
     <link rel="stylesheet" href="css/frontbar.css">
 </head>
@@ -176,19 +215,10 @@
                 body: JSON.stringify({ sceneId })
             })
 
-            console.log('add favorite response:', response);
-            console.log('add favorite response:', response.text());
-
-            if (response.ok) {
-                let object = await response.json();
-                // await console.log(a);
-                // await console.log(a.userName);
-                return object;
-            } else {
-                return null;
-            }
+            await console.log('update favorite response:', response);
         } catch (error) {
-            throw error; // Re-throwing the error to propagate it further
+            // throw error; // Re-throwing the error to propagate it further
+            console.log('update favorite error:', error);
         }
     }
 
@@ -239,22 +269,55 @@
 
             // 按钮
             const favoriteBtn = document.getElementById('favorite-btn');
-            const isFavorited = await judgeFavorite(databaseData.sceneId); // 获取状态
-            console.log('judge:', isFavorited);
+            const out_isFavorited = await judgeFavorite(databaseData.sceneId); // 获取状态
+            console.log('out isFavorited judge:', out_isFavorited);
             // 设置初始状态
-            if (isFavorited.status === 302) {
+            if (out_isFavorited.status === 302) {
                 favoriteBtn.classList.add('favorite');
             }
-            // 点击事件切换收藏状态
-            favoriteBtn.addEventListener('click', function () {
-                favoriteBtn.classList.toggle('favorite');
-                // const newStatus = favoriteBtn.classList.contains('favorite');
-                // 更新收藏状态到服务器
-                updateFavorite(databaseData.sceneId);
+            // 点击事件切换收藏状态，可能会存在无法删除曾经收藏景点的情况
+            favoriteBtn.addEventListener('click', async function () {
+                const in_isFavorited = await judgeFavorite(databaseData.sceneId); // 获取状态
+                console.log('in isFavorited judge:', in_isFavorited);
+                if (in_isFavorited.status === 401) {
+                    // skip
+                    showPopup('请先登录账号再收藏。');
+                } else {
+                    favoriteBtn.classList.toggle('favorite');
+                    // const newStatus = favoriteBtn.classList.contains('favorite');
+                    // 更新收藏状态到服务器
+                    await updateFavorite(databaseData.sceneId);
+                }
             });
 
         }
     });
+</script>
+
+
+<!-- Popup content -->
+<div id="popup" class="popup">
+    <h3 id="popup-message">--</h3>
+    <!--    <p>This is a custom HTML popup alert box.</p>-->
+    <button onclick="hidePopup()">Close</button>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay"></div>
+
+<script>
+    // Function to show the popup and overlay
+    function showPopup(message) {
+        document.getElementById('popup-message').innerText = message; // Update message
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    // Function to hide the popup and overlay
+    function hidePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
 </script>
 
 
