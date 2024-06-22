@@ -42,7 +42,12 @@ public class UserController {
     }
 
     @GetMapping("/current-user")
-    public User getCurrentUser(HttpSession session) {
-        return (User) session.getAttribute("user");
+    public ResponseEntity<User> getCurrentUser(HttpSession session) {
+        try {
+            User user = (User) session.getAttribute("user");
+            return ResponseEntity.ok(user);
+        } catch (NullPointerException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
     }
 }
